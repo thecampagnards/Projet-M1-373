@@ -7,7 +7,6 @@
     "test": "tests"
   },
   "dependencies": {
-    "gulp": "^3.9.1",
     "gulp-concat": "^2.6.1",
     "gulp-copy": "^1.0.0",
     "gulp-minify": "0.0.15",
