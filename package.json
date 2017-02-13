@@ -1,0 +1,26 @@
+{
+  "name": "projet-m1-373",
+  "version": "1.0.0",
+  "description": "Projet-M1-373",
+  "main": "gulpfile.js",
+  "directories": {
+    "test": "tests"
+  },
+  "dependencies": {
+    "gulp-sass": "^3.1.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thecampagnards/Projet-M1-373.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/thecampagnards/Projet-M1-373/issues"
+  },
+  "homepage": "https://github.com/thecampagnards/Projet-M1-373#readme"
+}
