@@ -194,3 +194,5 @@ fabric.properties
 # *.ipr
 
 # End of https://www.gitignore.io/api/phpstorm
+
+gulp_watch.bat
