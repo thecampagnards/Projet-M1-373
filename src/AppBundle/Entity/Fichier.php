@@ -211,4 +211,29 @@ class Fichier
     }
     return false;
   }
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Get fichierChemin
+     *
+     * @return string
+     */
+    public function getFichierChemin()
+    {
+        return $this->fichierChemin;
+    }
+
+    public function __toString()
+    {
+      return (string)$this->fichierChemin;
+    }
 }

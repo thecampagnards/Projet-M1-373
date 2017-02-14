@@ -35,4 +35,62 @@ class Utilisateur extends BaseUser
         parent::__construct();
         $this->ipNdd = new \Doctrine\Common\Collections\ArrayCollection();
     }
+
+    /**
+     * Set ipNdd
+     *
+     * @param array $ipNdd
+     *
+     * @return Utilisateur
+     */
+    public function setIpNdd($ipNdd)
+    {
+        $this->ipNdd = $ipNdd;
+
+        return $this;
+    }
+
+    /**
+     * Get ipNdd
+     *
+     * @return array
+     */
+    public function getIpNdd()
+    {
+        return $this->ipNdd;
+    }
+
+    /**
+     * Add camera
+     *
+     * @param \AppBundle\Entity\Camera $camera
+     *
+     * @return Utilisateur
+     */
+    public function addCamera(\AppBundle\Entity\Camera $camera)
+    {
+        $this->cameras[] = $camera;
+
+        return $this;
+    }
+
+    /**
+     * Remove camera
+     *
+     * @param \AppBundle\Entity\Camera $camera
+     */
+    public function removeCamera(\AppBundle\Entity\Camera $camera)
+    {
+        $this->cameras->removeElement($camera);
+    }
+
+    /**
+     * Get cameras
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCameras()
+    {
+        return $this->cameras;
+    }
 }
