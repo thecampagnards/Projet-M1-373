@@ -3,4 +3,16 @@
 @import "_menu.scss";
 @import "_font-awesome.scss";
 
+* {
+  font-family: Arial;
+}
+
+h1 {
+  text-transform: uppercase;
+  font-weight: bold;
+  border-bottom: 3px solid #222222;
+  color: #222222;
+  width: 100%;
+}
+
 

@@ -9,8 +9,14 @@ const COMPILED_PATH = 'web'
 
 gulp.task('scss', function () {
   return gulp.src(RESOURCES_PATH + '/scss/*.scss')
-              .pipe(sass({sourceComments: 'map'}))
+              .pipe(sass({sourceComments: 'map', errLogToConsole: true}))
+              .on('error', function (err) {
+                  console.log(err.toString());
+
+                  this.emit('end');
+              })
               .pipe(gulp.dest(COMPILED_PATH + '/css'))
+
 })
 
 gulp.task('fonts', function () {

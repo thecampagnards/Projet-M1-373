@@ -1,9 +1,10 @@
+@import "_variables.scss";
+
 /* The main content */
 
-.main-content {
-  max-width: 600px;
+div#content {
   padding-top: 40px;
-  margin: 0 0 40px 260px;
+  margin: 0 50px 0 ($menu-width + 50px);
 }
 
 /* The left-collapsing sidebar */
@@ -12,8 +13,8 @@
   position: fixed;
   top: 0;
   left: 0;
-  background-color: #292c2f;
-  width: 180px;
+  background-color: $dark-color2;
+  width: $menu-width;
   height: 100%;
   padding: 20px 0;
   > a {
@@ -28,10 +29,29 @@
     font-weight: normal;
     line-height: 2.6;
     border-radius: 50%;
-    background-color: #181a1b;
+    background-color: $dark-color1;
   }
   .sidebar-links {
     margin: 30px auto;
+  }
+
+  .bottom {
+    width: $menu-width;
+    text-align: center;
+    position: fixed;
+    bottom: 25px;
+
+      a.connect {
+        background-color: #FFFFFF;
+        color: $dark-color1;
+        padding: 6px 10px;
+        text-decoration: none;
+
+        &:hover {
+          color: #FFFFFF;
+          background-color: $dark-color1;
+        }
+      }
   }
 }
 
@@ -41,7 +61,7 @@
     text-decoration: none;
     margin: 0 auto 5px auto;
     padding: 10px 0 10px 5px;
-    background-color: #35393e;
+    background-color: $dark-color3;
     text-align: left;
     color: #b3bcc5;
     font-size: 12px;
