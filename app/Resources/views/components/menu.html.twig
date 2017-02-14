@@ -5,15 +5,15 @@
     <div class="sidebar-links">
 
         <div class="link-blue{% if app.request.attributes.get('_route') == 'cameras' %} selected{% endif %}">
-            <a href="/cameras"><i class="fa fa-list"></i>Liste des caméras</a>
+            <a href="{{ url('cameras') }}"><i class="fa fa-list"></i>Liste des caméras</a>
         </div>
 
-        <div class="link-yellow{% if app.request.attributes.get('_route') == 'populaire' %} selected{% endif %}">
-            <a href="/populaires"><i class="fa fa-star"></i>Médias populaires</a>
+        <div class="link-yellow{% if app.request.attributes.get('_route') == 'medias_populaires' %} selected{% endif %}">
+            <a href="{{ url('medias_populaires') }}"><i class="fa fa-star"></i>Médias populaires</a>
         </div>
 
-        <div class="link-green{% if app.request.attributes.get('_route') == 'derniers' %} selected{% endif %}">
-            <a href="/derniers"><i class="fa fa-clock-o"></i>Derniers médias</a>
+        <div class="link-green{% if app.request.attributes.get('_route') == 'medias_derniers' %} selected{% endif %}">
+            <a href="{{ url('medias_derniers') }}"><i class="fa fa-clock-o"></i>Derniers médias</a>
         </div>
 
 
