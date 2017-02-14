@@ -3,12 +3,18 @@
     <head>
         <meta charset="UTF-8" />
         <title>{% block title %}Caméra{% endblock %}</title>
+        <link rel="stylesheet" href="{{ asset('css/main.css') }}">
         {% block stylesheets %}{% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
     <body>
         {% include 'components/menu.html.twig' %}
-        {% block body %}{% endblock %}
+
+        <div id="content">
+            {% block body %}{% endblock %}
+        </div>
+
+        <script src="{{ asset('js/main.js') }}"></script>
         {% block javascripts %}{% endblock %}
     </body>
 </html>
