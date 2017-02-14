@@ -1,0 +1,22 @@
+{% block user_block %}
+  {% if app.user %}
+    {% set _user_image = null %}
+    {# set _user_image = app.user.defaultAvatar ? asset(app.user.defaultAvatar) : null #}
+    <li class="user-header bg-light-blue">
+      {% if _user_image %}
+      <img src="{{ _user_image }}" class="img-circle" alt="Avatar" />
+      {% endif %}
+      <p>{{ app.user }}</p>
+    </li>
+
+    <li class="user-footer">
+      <div class="pull-left">
+        <a href="{{ is_granted('ROLE_ADMIN') ? url('fos_user_profile_edit', {id: app.user.id(app.user)}) : url('fos_user_profile_show', {id: app.user.id(app.user)}) }}" class="btn btn-default btn-flat"><i class="fa fa-user"></i> Éditer</a>
+      </div>
+
+      <div class="pull-right">
+        <a href="{{ url('fos_user_security_logout') }}" class="btn btn-default btn-flat"><i class="fa fa-sign-out fa-fw"></i> {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}</a>
+      </div>
+    </li>
+  {% endif %}
+{% endblock %}

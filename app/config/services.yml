@@ -7,3 +7,17 @@ services:
 #    service_name:
 #        class: AppBundle\Directory\ClassName
 #        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
+
+
+
+    admin.camera:
+        class: AppBundle\Admin\CameraAdmin
+        arguments: [~, AppBundle\Entity\Camera, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: 'Caméra', label: Lister les caméras,  icon: '<i class="fa fa-video-camera"></i>', position:right }
+
+    admin.media:
+        class: AppBundle\Admin\MediaAdmin
+        arguments: [~, AppBundle\Entity\Media, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: 'Média', label: Lister les médias,  icon: '<i class="fa fa-picture-o"></i>', position:right }
