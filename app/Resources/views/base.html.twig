@@ -10,6 +10,7 @@
     <body>
         {% include 'components/menu.html.twig' %}
         {% block body %}{% endblock %}
+        <script src="{{ asset('js/main.js') }}"></script>
         {% block javascripts %}{% endblock %}
     </body>
 </html>

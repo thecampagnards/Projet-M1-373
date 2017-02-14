@@ -37,6 +37,4 @@ gulp.task('watch', function () {
   gulp.watch(RESOURCES_PATH + '/fonts/*', ['fonts'])
 })
 
-gulp.task('default', function () {
-
-})
+gulp.task('default', ['scss', 'fonts', 'js'])
