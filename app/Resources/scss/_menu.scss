@@ -1,12 +1,5 @@
 @import "_variables.scss";
 
-/* The main content */
-
-div#content {
-  padding-top: 40px;
-  margin: 0 50px 0 ($menu-width + 50px);
-}
-
 /* The left-collapsing sidebar */
 
 .sidebar-left-collapse {

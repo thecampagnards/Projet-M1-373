@@ -1,6 +1,8 @@
 
 {% if media.isImage %}
-  <a href="{{ url('media', {'id': media.id}) }}"><img src="{{ asset(media.getWebPath) }}" alt="{{ media.nom }}" /></a>
+  <a href="{{ url('media', {'id': media.id}) }}">
+    <img src="{{ asset(media.getWebPath) }}" alt="{{ media.nom }}" />
+  </a>
 {% elseif media.isVideo %}
   <video width="320" height="240" controls>
     <source src="{{ asset(media.getWebPath) }}">
@@ -11,4 +13,7 @@
    </p>
 {% else %}
   <a href="{{ asset(media.getWebPath) }}" downloads>{{ media.nom }}</a>
+  <p>
+    <a href="{{ url('media', {'id': media.id}) }}">Lien vers le media</a>
+  </p>
 {% endif %}

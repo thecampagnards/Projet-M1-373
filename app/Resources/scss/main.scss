@@ -7,6 +7,17 @@
   font-family: Arial;
 }
 
+/* The main content */
+
+div#content {
+  padding-top: 20px;
+  margin: 0 50px 0 ($menu-width + 50px);
+
+  img {
+    max-width: 100%;
+  }
+}
+
 h1 {
   text-transform: uppercase;
   font-weight: bold;

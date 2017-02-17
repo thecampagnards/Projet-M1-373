@@ -5,7 +5,10 @@
   <h1>{{ media.nom }} <small>{{ media.created|date('d/m/Y') }}</small></h1>
   <h2>Vote : {{ media.vote }}</h2>
 
-  {% include 'components/block/media.html.twig' with {'media': media} %}
+  <div class="row">
+    <div class="col-md-10 col-md-offset-1">
+      {% include 'components/block/media.html.twig' with {'media': media} %}
+    </div>
+  </div>
 
-  {{ dump(media) }}
 {% endblock %}

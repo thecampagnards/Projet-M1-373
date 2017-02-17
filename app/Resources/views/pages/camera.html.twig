@@ -3,20 +3,20 @@
 {% block body %}
   <h1>{{ camera.nom }}</h1>
   <div class="row">
-    <div class="col-sm-3">
+    <div class="col-sm-4">
       <img src="{{ asset(camera.getWebPath) }}" alt="{{ camera.nom }}">
     </div>
-    <div class="col-sm-8 col-sm-offset-1">
+    <div class="col-sm-8">
       <p>{{ camera.description }}</p>
     </div>
   </div>
 
-  <h1>Médias</h1>
+  <h1>Médias associés</h1>
   <ul class="medias">
     {%  for media in camera.medias %}
       <li class="media">
         {% include 'components/block/media.html.twig' with {'media': media} %}
       </li>
-    {% endfor %}
+      {% endfor %}
   </ul>
 {% endblock %}
