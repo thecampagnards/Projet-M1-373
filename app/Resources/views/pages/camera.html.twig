@@ -2,10 +2,9 @@
 
 {% block body %}
     <h1>{{ camera.nom }}</h1>
-    {{ dump(camera) }}
     <div class="row">
         <div class="col-sm-3">
-            <img src="{{ camera.image }}" alt="{{ camera.nom }}">
+            <img src="{{ asset(camera.getWebPath) }}" alt="{{ camera.nom }}">
         </div>
         <div class="col-sm-8 col-sm-offset-1">
             <p>{{ camera.description }}</p>
@@ -15,7 +14,20 @@
     <h1>Médias</h1>
     <ul class="medias">
         {%  for media in camera.medias %}
-            <li class="media"><a href="{{ url('media', {'id': media.id}) }}"><img src="" alt="Photo / Video de {{ camera.nom }}"></a></li>
+            <li class="media">
+              <a href="{{ url('media', {'id': media.id}) }}">
+                {% if media.isImage %}
+                <img src="{{ asset(media.getWebPath) }}" alt="{{ media.nom }}" />
+                {% elseif media.isVideo %}
+                  <video width="320" height="240" controls>
+                    <source src="{{ asset(media.getWebPath) }}" type="video/mp4">
+                     Your browser does not support the video tag.
+                 </video>
+                {% else %}
+                  <a href="{{ asset(media.getWebPath) }}" downloads>{{ media.nom }}</a>
+                {% endif %}
+              </a>
+            </li>
             <!--+gerer les viceos + pour le lien, cam + mdeia id ?-->
         {% endfor %}
     </ul>
