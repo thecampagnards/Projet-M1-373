@@ -2,6 +2,10 @@
 
 {% block body %}
 
+    <h1>{{ media.nom }} <small>{{ media.created|date('d/m/Y') }}</small></h1>
+
+    <h2>Vote : {{ media.vote }}</h2>
+
     {% if media.isImage %}
     <img src="{{ asset(media.getWebPath) }}" alt="{{ media.nom }}" />
     {% elseif media.isVideo %}
