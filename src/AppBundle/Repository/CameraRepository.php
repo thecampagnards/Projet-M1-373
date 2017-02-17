@@ -17,8 +17,9 @@ class CameraRepository extends \Doctrine\ORM\EntityRepository
    *
    * @return array
    */
-    public function findCameraByUtilisateur(Utilisateur $utilisateur)
+    public function findByUtilisateur(Utilisateur $utilisateur)
     {
+      dump('ok');
       $qb = $this->_em->createQueryBuilder();
       $qb->select('u')
           ->from($this->_entityName, 'u')
