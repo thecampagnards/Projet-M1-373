@@ -2,5 +2,17 @@
 
 {% block body %}
     <h1>Caméras publiques</h1>
-    ok
+
+    <ul class="cameras">
+        {%  for camera in cameras %}
+           <li class="camera"><a href="{{ url('camera', {'id': camera.id}) }}"><img src="{{ camera.image }}" alt="{{ camera.nom }}"><h2>{{ camera.nom }}</h2></a></li>
+        {% endfor %}
+
+        <li class="camera"><a href=""><img src="https://evanguelard.fr/assets/images/work/little-phoenix.png" alt="titre"><h2>titre de la caméra</h2></a></li>
+        <li class="camera"><a href=""><img src="https://evanguelard.fr/assets/images/work/little-phoenix.png" alt="titre"><h2>titre de la caméra</h2></a></li>
+        <li class="camera"><a href=""><img src="https://evanguelard.fr/assets/images/work/little-phoenix.png" alt="titre"><h2>titre de la caméra</h2></a></li>
+        <li class="camera"><a href=""><img src="https://evanguelard.fr/assets/images/work/little-phoenix.png" alt="titre"><h2>titre de la caméra</h2></a></li>
+        <li class="camera"><a href=""><img src="https://evanguelard.fr/assets/images/work/little-phoenix.png" alt="titre"><h2>titre de la caméra</h2></a></li>
+        <li class="camera"><a href=""><img src="https://evanguelard.fr/assets/images/work/little-phoenix.png" alt="titre"><h2>titre de la caméra</h2></a></li>
+    </ul>
 {% endblock %}

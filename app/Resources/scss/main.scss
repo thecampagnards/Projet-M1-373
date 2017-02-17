@@ -15,4 +15,64 @@ h1 {
   width: 100%;
 }
 
+ul.cameras {
+  margin: 0;
+  padding: 0;
 
+  li.camera {
+    list-style: none;
+    width: 360px;
+    display: inline-block;
+    padding: 15px;
+
+    img {
+      width: 100%;
+    }
+
+    h2 {
+      margin: 0;
+      font-size: 1.2em;
+    }
+
+    a {
+      text-decoration: none;
+      color: $dark-color2;
+      
+      &:hover {
+        color: $dark-color1;
+      }
+    }
+
+    &:hover {
+      img {
+        opacity: 0.7;
+      }
+    }
+  }
+}
+
+ul.medias {
+  margin: 0;
+  padding: 0;
+
+  li.media {
+    list-style: none;
+    width: 280px;
+    display: inline-block;
+    padding: 10px;
+
+    img {
+      width: 100%;
+    }
+
+    a {
+      text-decoration: none;
+    }
+
+    &:hover {
+      img {
+        opacity: 0.7;
+      }
+    }
+  }
+}
