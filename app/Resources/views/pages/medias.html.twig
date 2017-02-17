@@ -2,29 +2,20 @@
 
 {% block body %}
 
-    <h1>Médias
-        {% if app.request.get('_route') == 'populaires' %}
-            populaires
-        {% elseif app.request.get('_route') == 'recents'%}
-            récents
-        {% endif %}
-    </h1>
+  <h1>
+    Médias
+    {% if app.request.get('_route') == 'populaires' %}
+      populaires
+    {% elseif app.request.get('_route') == 'recents'%}
+      récents
+    {% endif %}
+  </h1>
 
-    <ul class="medias">
-        {%  for media in medias %}
-            <li class="media">
-              {% if media.isImage %}
-                <a href="{{ url('media', {'id': media.id}) }}"><img src="{{ asset(media.getWebPath) }}" alt="{{ media.nom }}" /></a>
-              {% elseif media.isVideo %}
-                <video width="320" height="240" controls>
-                  <source src="{{ asset(media.getWebPath) }}" type="video/mp4">
-                   Your browser does not support the video tag.
-               </video>
-                 <a href="{{ url('media', {'id': media.id}) }}">Lien vers le media</a>
-              {% else %}
-                <a href="{{ asset(media.getWebPath) }}" downloads>{{ media.nom }}</a>
-              {% endif %}
-            </li>
-        {% endfor %}
-    </ul>
+  <ul class="medias">
+    {% for media in medias %}
+      <li class="media">
+        {% include 'components/block/media.html.twig' with {'media': media} %}
+      </li>
+    {% endfor %}
+  </ul>
 {% endblock %}

@@ -1,23 +1,26 @@
 <!DOCTYPE html>
 <html lang="fr">
-    <head>
-        <meta charset="UTF-8" />
-        <title>{% block title %}Caméra{% endblock %}</title>
-        <link rel="stylesheet" href="{{ asset('css/main.css') }}">
-        {% block stylesheets %}{% endblock %}
-        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
-    </head>
-    <body>
-    {% if app.request.get('_route') != 'homepage' %}
-        {% include 'components/menu.html.twig' %}
+  <head>
+    <meta charset="UTF-8" />
+    <title>{% block title %}Caméra{% endblock %}</title>
+    <link rel="stylesheet" href="{{ asset('css/main.css') }}" />
+    {% block stylesheets %}{% endblock %}
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+  </head>
+  <body>
 
-        <div id="content">{% endif %}
-            {% block body %}{% endblock %}{% if app.request.get('_route') != 'homepage' %}
-        </div>
+    {% if app.request.get('_route') != 'homepage' %}
+      {% include 'components/menu.html.twig' %}
+      <div id="content">
     {% endif %}
 
+      {% block body %}{% endblock %}
 
-        <script src="{{ asset('js/main.js') }}"></script>
-        {% block javascripts %}{% endblock %}
-    </body>
+    {% if app.request.get('_route') != 'homepage' %}
+      </div>
+    {% endif %}
+
+    <script src="{{ asset('js/main.js') }}"></script>
+    {% block javascripts %}{% endblock %}
+  </body>
 </html>

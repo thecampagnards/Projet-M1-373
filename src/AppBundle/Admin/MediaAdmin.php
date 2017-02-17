@@ -65,7 +65,7 @@ class MediaAdmin extends AbstractAdmin
         ->addIdentifier('vote')
         ->addIdentifier('etat', null, array('label' => 'Public'))
         ->addIdentifier('camera', null, array('label' => 'Caméra'))
-        ->add('media', 'string', array('template' => 'components/admin/list_image.html.twig'))
+        ->add('media', 'string', array('template' => 'components/admin/list_media.html.twig'))
         ->add('_action', 'actions', array(
           'actions' => array(
             'edit' => array(),

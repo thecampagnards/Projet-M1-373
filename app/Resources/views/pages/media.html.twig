@@ -2,20 +2,10 @@
 
 {% block body %}
 
-    <h1>{{ media.nom }} <small>{{ media.created|date('d/m/Y') }}</small></h1>
+  <h1>{{ media.nom }} <small>{{ media.created|date('d/m/Y') }}</small></h1>
+  <h2>Vote : {{ media.vote }}</h2>
 
-    <h2>Vote : {{ media.vote }}</h2>
+  {% include 'components/block/media.html.twig' with {'media': media} %}
 
-    {% if media.isImage %}
-    <img src="{{ asset(media.getWebPath) }}" alt="{{ media.nom }}" />
-    {% elseif media.isVideo %}
-      <video width="320" height="240" controls>
-        <source src="{{ asset(media.getWebPath) }}" type="video/mp4">
-         Your browser does not support the video tag.
-     </video>
-    {% else %}
-      <a href="{{ asset(media.getWebPath) }}" downloads>{{ media.nom }}</a>
-    {% endif %}
-
-    {{ dump(media) }}
+  {{ dump(media) }}
 {% endblock %}
