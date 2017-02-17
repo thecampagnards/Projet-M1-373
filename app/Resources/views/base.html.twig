@@ -8,11 +8,14 @@
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
     <body>
+    {% if app.request.get('_route') != 'homepage' %}
         {% include 'components/menu.html.twig' %}
 
-        <div id="content">
-            {% block body %}{% endblock %}
+        <div id="content">{% endif %}
+            {% block body %}{% endblock %}{% if app.request.get('_route') != 'homepage' %}
         </div>
+    {% endif %}
+
 
         <script src="{{ asset('js/main.js') }}"></script>
         {% block javascripts %}{% endblock %}

@@ -1,7 +1,14 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Médias populaires</h1>
+
+    <h1>Médias
+        {% if app.request.get('_route') == 'populaires' %}
+            populaires
+        {% elseif app.request.get('_route') == 'recents'%}
+            récents
+        {% endif %}
+    </h1>
 
     <ul class="medias">
         {%  for media in medias %}
