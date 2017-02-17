@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>{{ camera.nom }}</h1>
+    {{ dump(camera) }}
+    <div class="row">
+        <div class="col-sm-3">
+            <img src="{{ camera.image }}" alt="{{ camera.nom }}">
+        </div>
+        <div class="col-sm-8 col-sm-offset-1">
+            <p>{{ camera.description }}</p>
+        </div>
+    </div>
+
+    <h1>Médias</h1>
+    <ul class="medias">
+        {%  for media in camera.medias %}
+            <li class="media"><a href="{{ url('media', {'id': media.id}) }}"><img src="" alt="Photo / Video de {{ camera.nom }}"></a></li>
+            <!--+gerer les viceos + pour le lien, cam + mdeia id ?-->
+        {% endfor %}
+    </ul>
+{% endblock %}

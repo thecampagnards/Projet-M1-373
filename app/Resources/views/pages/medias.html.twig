@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Médias populaires</h1>
+
+    <ul class="medias">
+        {%  for media in medias %}
+            <li class="media"><a href="{{ url('media', {'id': media.id}) }}"><img src="" alt="Photo / Video de {{ media.camera.nom }}"></a></li>
+            <!--+gerer les viceos + pour le lien, cam + mdeia id ?-->
+        {% endfor %}
+    </ul>
+{% endblock %}
