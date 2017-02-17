@@ -1,6 +1,19 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+
+    {% if is_granted('ROLE_USER') and app.user.cameras|length != 0 %}
+      <h1>Mes caméras</h1>
+
+      <ul class="cameras">
+          {% for camera in cameras %}
+            {% if app.user in camera.utilisateurs %}
+             <li class="camera"><a href="{{ url('camera', {'id': camera.id}) }}"><img src="{{ asset(camera.getWebPath) }}" alt="{{ camera.nom }}"><h2>{{ camera.nom }}</h2></a></li>
+             {% endif %}
+          {% endfor %}
+      </ul>
+    {% endif %}
+
     <h1>Caméras publiques</h1>
 
     <ul class="cameras">
