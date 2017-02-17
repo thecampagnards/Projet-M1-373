@@ -1,0 +1,18 @@
+{% extends 'SonataAdminBundle:CRUD:base_list_field.html.twig' %}
+
+{% block field %}
+<div>
+    {% if object.media is defined and object.getWebPath != null %}
+      {% if object.isImage %}
+        <img style="height:80px" src="{{ asset(object.getWebPath) }}">
+      {% elseif object.isVideo %}
+      <video height="80" controls>
+         <source src="{{ asset(object.getWebPath) }}" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+      {% endif %}
+    {% else %}
+      <span>Pas de visuel</span>
+    {% endif %}
+</div>
+{% endblock %}

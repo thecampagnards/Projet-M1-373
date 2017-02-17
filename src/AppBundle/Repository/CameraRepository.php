@@ -2,6 +2,8 @@
 
 namespace AppBundle\Repository;
 
+use AppBundle\Entity\Utilisateur;
+
 /**
  * CameraRepository
  *
@@ -10,4 +12,21 @@ namespace AppBundle\Repository;
  */
 class CameraRepository extends \Doctrine\ORM\EntityRepository
 {
+  /**
+   * @param Utilisateur $utilisateur
+   *
+   * @return array
+   */
+    public function findCameraByUtilisateur(Utilisateur $utilisateur)
+    {
+      $qb = $this->_em->createQueryBuilder();
+      $qb->select('u')
+          ->from($this->_entityName, 'u')
+          ->leftJoin('u.utilisateurs','us')
+          ->where('u.etat = 1')
+          ->orWhere('us.id = :utilisateur_id')
+          ->setParameter('utilisateur_id', $utilisateur->getId());
+
+      return $qb->getQuery()->getResult();
+    }
 }

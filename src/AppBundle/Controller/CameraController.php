@@ -14,7 +14,17 @@ class CameraController extends Controller
      */
     public function indexAction()
     {
-        $cameras = $this->getDoctrine()->getRepository('AppBundle:Camera')->findAll();
+      if($this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')){
+        $cameras = $this
+                ->getDoctrine()
+                ->getManager()
+                ->getRepository('AppBundle:Camera')->findAll();
+      }else{
+        $cameras = $this
+                ->getDoctrine()
+                ->getManager()
+                ->getRepository('AppBundle:Camera')->findCameraByUtilisateur($this->getUser());
+      }
         return $this->render('pages/cameras.html.twig', array('cameras' => $cameras));
     }
 
