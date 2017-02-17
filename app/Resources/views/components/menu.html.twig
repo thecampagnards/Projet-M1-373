@@ -1,6 +1,6 @@
 <nav class="sidebar-left-collapse">
 
-    <a href="#" class="company-logo"><i class="fa fa-video-camera"></i></a>
+    <a href="{{ url('homepage') }}" class="company-logo"><i class="fa fa-video-camera"></i></a>
 
     <div class="sidebar-links">
 
@@ -23,5 +23,7 @@
 
     {% if app.user is empty %}
         <div class="bottom"><a href="{{ url('fos_user_security_login') }}" class="connect">Connexion</a></div>
+    {% else %}
+        <div class="bottom"><a href="{{ url('fos_user_security_logout') }}" class="connect">Déconnexion</a></div>
     {% endif %}
 </nav>
