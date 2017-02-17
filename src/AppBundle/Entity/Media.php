@@ -7,10 +7,11 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Media
  *
+ * @ORM\HasLifecycleCallbacks
  * @ORM\Table(name="media")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\MediaRepository")
  */
-class Media
+class Media extends BaseFile
 {
     /**
      * @var int
@@ -47,7 +48,7 @@ class Media
      *
      * @ORM\Column(name="vote", type="integer", nullable=true)
      */
-    private $vote;
+    private $vote = 0;
 
     /**
      * @ORM\ManyToOne(targetEntity="Camera", inversedBy="medias")
@@ -56,9 +57,26 @@ class Media
     private $camera;
 
     /**
-    * @ORM\OneToOne(targetEntity="AppBundle\Entity\Fichier", cascade={"persist"})
-    */
-    private $fichier;
+     * @var datetime $created
+     *
+     * @ORM\Column(type="datetime")
+     */
+    private $created;
+
+    public function __construct()
+    {
+        $this->setCreated(new \DateTime("now"));
+    }
+
+    public function __toString()
+    {
+        return (string) $this->nom;
+    }
+
+    protected function getUploadDir()
+    {
+        return 'uploads/camera/'.$this->getCamera()->getId().'/'. ($this->getEtat() ? 'public/' : 'prive/');
+    }
 
     /**
      * Get id
@@ -191,26 +209,26 @@ class Media
     }
 
     /**
-     * Set fichier
+     * Set created
      *
-     * @param \AppBundle\Entity\Fichier $fichier
+     * @param \DateTime $created
      *
      * @return Media
      */
-    public function setFichier(\AppBundle\Entity\Fichier $fichier = null)
+    public function setCreated($created)
     {
-        $this->fichier = $fichier;
+        $this->created = $created;
 
         return $this;
     }
 
     /**
-     * Get fichier
+     * Get created
      *
-     * @return \AppBundle\Entity\Fichier
+     * @return \DateTime
      */
-    public function getFichier()
+    public function getCreated()
     {
-        return $this->fichier;
+        return $this->created;
     }
 }

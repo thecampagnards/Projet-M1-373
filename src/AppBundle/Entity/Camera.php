@@ -7,10 +7,11 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Camera
  *
+ * @ORM\HasLifecycleCallbacks
  * @ORM\Table(name="camera")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\CameraRepository")
  */
-class Camera
+class Camera extends BaseFile
 {
     /**
      * @var int
@@ -74,10 +75,10 @@ class Camera
      */
     private $utilisateurs;
 
-    /**
-    * @ORM\OneToOne(targetEntity="AppBundle\Entity\Fichier", cascade={"persist"})
-    */
-    private $image;
+    protected function getUploadDir()
+    {
+        return 'uploads/camera/'.$this->getId().'/';
+    }
 
     /**
      * Constructor
@@ -313,29 +314,5 @@ class Camera
     public function getUtilisateurs()
     {
         return $this->utilisateurs;
-    }
-
-    /**
-     * Set image
-     *
-     * @param \AppBundle\Entity\Fichier $image
-     *
-     * @return Camera
-     */
-    public function setImage(\AppBundle\Entity\Fichier $image = null)
-    {
-        $this->image = $image;
-
-        return $this;
-    }
-
-    /**
-     * Get image
-     *
-     * @return \AppBundle\Entity\Fichier
-     */
-    public function getImage()
-    {
-        return $this->image;
     }
 }
