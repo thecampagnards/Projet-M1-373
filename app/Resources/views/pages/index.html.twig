@@ -1,5 +1,9 @@
 {% extends 'base.html.twig' %}
 
+{% block stylesheets %}
+  <link rel="stylesheet" href="{{ asset('css/index.css') }}" />
+{% endblock %}
+
 {% block body %}
   <nav>
 
@@ -11,7 +15,27 @@
 
   <section class="links">
     <ul>
-      <li><a href="{{ url('cameras') }}">Liste des caméras</a></li>
+      <li class="blue">
+        <a href="{{ url('cameras') }}">
+          <i class="fa fa-video-camera"></i><br>
+          <small>Accéder aux </small><br>
+          <b>caméras publiques</b>
+        </a>
+      </li>
+      <li class="yellow">
+        <a href="{{ url('medias_populaires') }}">
+          <i class="fa fa-star"></i><br>
+          <small>Accéder aux </small><br>
+          <b>médias populaires</b>
+        </a>
+      </li>
+      <li class="green">
+        <a href="{{ url('medias_derniers') }}">
+          <i class="fa fa-clock-o"></i><br>
+          <small>Accéder aux </small><br>
+          <b>derniers médias</b>
+        </a>
+      </li>
     </ul>
   </section>
 {% endblock %}
