@@ -6,11 +6,12 @@
 
 {% block body %}
   <nav>
-
+    <div class="col-xs-6">Caméra</div>
+    <div class="col-xs-6">Connexion</div>
   </nav>
 
   <header>
-
+    Projet réalisé dans le cadre de notre quatrième année à l'école d'ingénieurs <a href="http://isen-brest.fr/">ISEN Brest</a>.
   </header>
 
   <section class="links">
@@ -38,4 +39,24 @@
       </li>
     </ul>
   </section>
+
+  <section>
+    <h1>Partenaires</h1>
+    <ul>
+      <li><a href=""><img src="" alt=""></a></li>
+    </ul>
+  </section>
+
+  <section>
+    <div class="row">
+      <div class="col-xs-4"><a href="">Plan du site</a> //a remplir</div>
+      <div class="col-xs-4"><a href="">Mentions légales</a> //a remplir</div>
+      <div class="col-xs-4"><a href="{{ url('contact') }}">Contact</a></div>
+    </div>
+  </section>
+
+  <footer>
+    Réalisé par <a href="http://evanguelard.fr" target="_blank">Evan Guélard</a> et <a href="http://konstantin-sidorenko.fr" target="_blank">Konstantin Sidorenko</a> -
+    <a href="http://isen-brest.fr/">ISEN Brest</a> - Tutelle de Monsieur Yves Auffret
+  </footer>
 {% endblock %}
