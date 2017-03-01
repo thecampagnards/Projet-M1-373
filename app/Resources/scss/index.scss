@@ -2,6 +2,76 @@
 @import "_grid.scss";
 @import "_font-awesome.scss";
 
+a {
+  text-decoration: none;
+}
+
+nav {
+  border-bottom: 2px solid $blue-color;
+  margin-bottom: 20px;
+  width: 100%;
+
+  ul {
+    li {
+      display: inline-block;
+      list-style: none;
+    }
+  }
+
+  a {
+    color: $dark-color1;
+  }
+}
+
+header {
+  text-align: center;
+  width: 100%;
+  margin-bottom: 20px;
+  
+  a {
+    color: $blue-color;
+  }
+}
+
+section {
+  width: 100%;
+  padding: 10px 15%;
+  box-sizing: border-box;
+  
+  h1 {
+    color: $dark-color1;
+    border: none;
+    text-transform: capitalize;
+  }
+
+  &#partenaires {
+    background-color: $blue-color;
+
+    h1 {
+      color: #fff;
+    }
+
+    a {
+      color: #fff;
+    }
+  }
+
+  &#sous-menu {
+    background-color: $dark-color3;
+    color: #FFFFFF;
+    display: flex;
+    justify-content: space-between;
+
+    span {
+      padding: 10px;
+    }
+
+    a {
+      color: #fff;
+    }
+  }
+}
+
 .links {
   text-align: center;
 
@@ -44,5 +114,16 @@
     &.green {
       background-color: $green-color;
     }
+  }
+}
+
+footer {
+  background-color: $dark-color2;
+  color: #FFFFFF;
+  text-align: center;
+  padding: 15px;
+
+  a {
+    color: #fff;
   }
 }

@@ -6,8 +6,12 @@
 
 {% block body %}
   <nav>
-    <div class="col-xs-6">Caméra</div>
-    <div class="col-xs-6">Connexion</div>
+    <ul>
+      <li><a href="{{ url('homepage') }}"><i class="fa fa-video-camera"></i>Caméra</a></li>
+      {% if app.user is empty %}
+        <li><a href="{{ url('fos_user_security_login') }}">Connexion</a></li>
+      {% endif %}
+    </ul>
   </nav>
 
   <header>
@@ -40,18 +44,17 @@
     </ul>
   </section>
 
-  <section>
+  <section id="partenaires">
     <h1>Partenaires</h1>
     <ul>
       <li><a href=""><img src="" alt=""></a></li>
     </ul>
   </section>
 
-  <section>
-    <div class="row">
-      <div class="col-xs-4"><a href="">Plan du site</a> //a remplir</div>
-      <div class="col-xs-4"><a href="">Mentions légales</a> //a remplir</div>
-      <div class="col-xs-4"><a href="{{ url('contact') }}">Contact</a></div>
+  <section id="sous-menu">
+      <span><a href="">Plan du site</a> //a remplir</span>
+      <span><a href="">Mentions légales</a> //a remplir</span>
+      <span><a href="{{ url('contact') }}">Contact</a></span>
     </div>
   </section>
 
