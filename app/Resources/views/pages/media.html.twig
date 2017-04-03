@@ -3,7 +3,7 @@
 {% block body %}
 
   <h1>{{ media.nom }} <small>{{ media.created|date('d/m/Y') }}</small></h1>
-  <h2>Vote : {{ media.vote }}</h2>
+  <h2>Vote : {% include 'components/block/vote.count.html.twig' with {'media': media} %}</h2>
 
   <div class="row">
     <div class="col-md-10 col-md-offset-1">
@@ -11,4 +11,10 @@
     </div>
   </div>
 
+  {% include 'components/block/vote.button.html.twig' with {'media': media} %}
+
+{% endblock %}
+
+{% block javascripts %}
+  {% include 'components/block/vote.js.html.twig' %}
 {% endblock %}

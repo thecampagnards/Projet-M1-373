@@ -29,6 +29,7 @@ class MediaAdmin extends AbstractAdmin
 
         $formMapper
         ->add('nom', 'text', array('help' => 'Titre du média.'))
+        ->add('votesCount', 'text', array('label' => 'Votes', 'help' => 'Les votes du média.', 'disabled' => true, 'required' => false))
         ->add('description', 'textarea', array('help' => 'Description du média.', 'required' => false))
         ->add('etat', 'choice', array('help'=>'Activer si vous voulez rendre le média public ou privée.', 'choices' => array(
           'Privé' => '0',
@@ -40,15 +41,13 @@ class MediaAdmin extends AbstractAdmin
           'label' => 'Caméra',
           'help' => 'La caméra associée au média.'
         ), array('admin_code' => 'admin.camera'))
-        ->add('file', 'file', $fileFieldOptions)
-        ->add('vote', 'text', array('help' => 'Les votes du média.', 'disabled' => true, 'required' => false));
+        ->add('file', 'file', $fileFieldOptions);
     }
 
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
         ->add('nom')
-        ->add('vote')
         ->add('etat',null, array(), 'choice', array(
           'choices' => array(
             'Privé' => '0',
@@ -62,7 +61,7 @@ class MediaAdmin extends AbstractAdmin
     {
         $listMapper
         ->addIdentifier('nom')
-        ->addIdentifier('vote')
+        ->addIdentifier('votesCount', null, array('label' => 'Votes'))
         ->addIdentifier('etat', null, array('label' => 'Public'))
         ->addIdentifier('camera', null, array('label' => 'Caméra'))
         ->add('media', 'string', array('template' => 'components/admin/list_media.html.twig'))

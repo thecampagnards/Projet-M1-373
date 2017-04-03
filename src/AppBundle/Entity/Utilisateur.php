@@ -31,6 +31,11 @@ class Utilisateur extends BaseUser
      */
     private $cameras;
 
+    /**
+     *  @ORM\OneToMany(targetEntity="Vote", mappedBy="utilisateur")
+     */
+    private $votes;
+
     public function __construct()
     {
         parent::__construct();
@@ -93,5 +98,39 @@ class Utilisateur extends BaseUser
     public function getCameras()
     {
         return $this->cameras;
+    }
+
+    /**
+     * Add vote
+     *
+     * @param \AppBundle\Entity\Vote $vote
+     *
+     * @return Utilisateur
+     */
+    public function addVote(\AppBundle\Entity\Vote $vote)
+    {
+        $this->votes[] = $vote;
+
+        return $this;
+    }
+
+    /**
+     * Remove vote
+     *
+     * @param \AppBundle\Entity\Vote $vote
+     */
+    public function removeVote(\AppBundle\Entity\Vote $vote)
+    {
+        $this->votes->removeElement($vote);
+    }
+
+    /**
+     * Get votes
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getVotes()
+    {
+        return $this->votes;
     }
 }

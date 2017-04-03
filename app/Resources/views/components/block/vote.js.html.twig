@@ -1,0 +1,42 @@
+
+{% block javascripts %}
+<script>
+  $(document).ready(function(){
+    var url_vote = '{{ path('medias_ajax_vote') }}'
+    var url_devote = '{{ path('medias_ajax_devote') }}'
+
+    $('.vote-me').click(function() {
+
+      var button = $(this)
+      var idMedia = button.attr('data-media')
+      var spanMediaCount = $("span[data-media-count='" + idMedia + "']")
+      var mediaCount = parseInt(spanMediaCount.text())
+      var votable = (button.attr('data-votable') == 'true')
+
+      $.ajax({
+        url: votable ? url_vote : url_devote,
+        method: 'POST',
+        data: {
+          idMedia: idMedia
+        },
+        success : function(code_html, statut){
+          if(votable){
+            button.text('Vote -')
+            spanMediaCount.text(++mediaCount)
+            button.attr('data-votable', 'false')
+          }else{
+            button.text('Vote +')
+            spanMediaCount.text(--mediaCount)
+            button.attr('data-votable', 'true')
+          }
+        },
+        error : function(r, s, e){
+          console.log(r)
+          console.log(s)
+          console.log(e)
+        }
+      })
+    })
+  })
+</script>
+{% endblock %}

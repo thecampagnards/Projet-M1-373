@@ -15,7 +15,13 @@
     {% for media in medias %}
       <li class="media">
         {% include 'components/block/media.html.twig' with {'media': media} %}
+        {% include 'components/block/vote.count.html.twig' with {'media': media} %}
+        {% include 'components/block/vote.button.html.twig' with {'media': media} %}
       </li>
     {% endfor %}
   </ul>
+{% endblock %}
+
+{% block javascripts %}
+  {% include 'components/block/vote.js.html.twig' %}
 {% endblock %}

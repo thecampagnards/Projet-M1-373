@@ -44,11 +44,9 @@ class Media extends BaseFile
     private $etat;
 
     /**
-     * @var int
-     *
-     * @ORM\Column(name="vote", type="integer", nullable=true)
+     *  @ORM\OneToMany(targetEntity="Vote", mappedBy="media")
      */
-    private $vote = 0;
+    private $votes;
 
     /**
      * @ORM\ManyToOne(targetEntity="Camera", inversedBy="medias")
@@ -61,16 +59,16 @@ class Media extends BaseFile
      *
      * @ORM\Column(type="datetime")
      */
-    private $created;
+     private $created;
+
+     private $votesCount;
+     public function getVotesCount(){
+        return count($this->getVotes());
+    }
 
     public function __construct()
     {
         $this->setCreated(new \DateTime("now"));
-    }
-
-    public function __toString()
-    {
-        return (string) $this->nom;
     }
 
     protected function getUploadDir()
@@ -230,5 +228,39 @@ class Media extends BaseFile
     public function getCreated()
     {
         return $this->created;
+    }
+
+    /**
+     * Add vote
+     *
+     * @param \AppBundle\Entity\Vote $vote
+     *
+     * @return Media
+     */
+    public function addVote(\AppBundle\Entity\Vote $vote)
+    {
+        $this->votes[] = $vote;
+
+        return $this;
+    }
+
+    /**
+     * Remove vote
+     *
+     * @param \AppBundle\Entity\Vote $vote
+     */
+    public function removeVote(\AppBundle\Entity\Vote $vote)
+    {
+        $this->votes->removeElement($vote);
+    }
+
+    /**
+     * Get votes
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getVotes()
+    {
+        return $this->votes;
     }
 }

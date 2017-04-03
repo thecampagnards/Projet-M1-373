@@ -1,0 +1,7 @@
+<button type="button" class="vote-me" data-media="{{ media.id }}" data-votable="{% if media_service.check(media) %}false{% else %}true{% endif %}">
+  Vote {% if media_service.check(media) %}
+  -
+  {% else %}
+  +
+  {% endif %}
+</button>

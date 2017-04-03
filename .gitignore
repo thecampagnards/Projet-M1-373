@@ -135,6 +135,8 @@ jspm_packages
 ### Symfony Patch ###
 /web/css/
 /web/js/
+/web/fonts/
+/web/img/
 
 # End of https://www.gitignore.io/api/composer,symfony,node,sass
 

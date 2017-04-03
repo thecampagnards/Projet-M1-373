@@ -10,4 +10,19 @@ namespace AppBundle\Repository;
  */
 class MediaRepository extends \Doctrine\ORM\EntityRepository
 {
+  /**
+   * @param string $order
+   *
+   * @return result
+   */
+    public function orderByVotes($order = 'DESC')
+    {
+      $qb = $this->_em->createQueryBuilder();
+      $qb->select('u, COUNT(v.id) AS HIDDEN countVotes')
+          ->from($this->_entityName, 'u')
+          ->innerJoin('u.votes', 'v')
+          ->groupBy('u.id')
+          ->orderBy('countVotes', $order);
+      return $qb->getQuery()->getResult();
+    }
 }

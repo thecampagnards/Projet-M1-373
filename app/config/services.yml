@@ -33,3 +33,7 @@ services:
         arguments: [~, AppBundle\Entity\Contact, ~]
         tags:
             - { name: sonata.admin, manager_type: orm, group: 'Contact',  label: Contact,  icon: '<i class="fa fa-envelope"></i>', position:right }
+
+    app.media_service:
+        arguments:  ['@session', '@doctrine', '@security.token_storage']
+        class: AppBundle\Service\MediaService
