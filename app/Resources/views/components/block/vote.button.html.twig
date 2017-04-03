@@ -1,7 +1,7 @@
-<button type="button" class="vote-me" data-media="{{ media.id }}" data-votable="{% if media_service.check(media) %}false{% else %}true{% endif %}">
-  Vote {% if media_service.check(media) %}
-  -
+<a class="vote-me" data-media="{{ media.id }}" data-votable="{% if media_service.check(media) %}false{% else %}true{% endif %}">
+  {% if media_service.check(media) %}
+  <i class="fa fa-star voted"></i>
   {% else %}
-  +
+    <i class="fa fa-star-o"></i>
   {% endif %}
-</button>
+</a>

@@ -21,11 +21,11 @@
         },
         success : function(code_html, statut){
           if(votable){
-            button.text('Vote -')
+            button.html('<i class="fa fa-star voted"></i>')
             spanMediaCount.text(++mediaCount)
             button.attr('data-votable', 'false')
           }else{
-            button.text('Vote +')
+            button.html('<i class="fa fa-star-o"></i>')
             spanMediaCount.text(--mediaCount)
             button.attr('data-votable', 'true')
           }

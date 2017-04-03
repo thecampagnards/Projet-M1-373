@@ -2,8 +2,7 @@
 
 {% block body %}
 
-  <h1>{{ media.nom }} <small>{{ media.created|date('d/m/Y') }}</small></h1>
-  <h2>Vote : {% include 'components/block/vote.count.html.twig' with {'media': media} %}</h2>
+  <h1>{{ media.nom }} <small>{{ media.created|date('d/m/Y') }}</small> <small class="vote-label"> Vote(s)</small>{% include 'components/block/vote.count.html.twig' with {'media': media} %}{% include 'components/block/vote.button.html.twig' with {'media': media} %}</h1>
 
   <div class="lemedia">
       {% include 'components/block/media.html.twig' with {'media': media} %}
@@ -12,7 +11,7 @@
   <div class="sharethis-inline-share-buttons"></div>
   <br>
 
-  {% include 'components/block/vote.button.html.twig' with {'media': media} %}
+
 
 {% endblock %}
 
