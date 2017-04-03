@@ -88,6 +88,14 @@ ul.medias {
   }
 }
 
+.lemedia {
+  text-align: center;
+
+  img {
+    width: 78%;
+  }
+}
+
 form[method="post"] {
   display: flex;
   align-self: center;

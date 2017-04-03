@@ -76,13 +76,36 @@
     <div class="description">
       <h2>{{ camera.nom }}  <span class="etat"><i class="fa fa-circle"></i> Off</span></h2>
       <p>{{ camera.description }}</p>
-
-      <a href="{{ url('camera', {'id': camera.id}) }}" class="button"> Accéder à la caméra</a>
+        <a href="{{ url('camera', {'id': camera.id}) }}" class="button"> Accéder à la caméra</a>
     </div>
   </section>
 
   <section id="populaires">
-
+    <h2>Médias populaires</h2>
+    <ul>
+      {% for media in medias|slice(0, 4) %}
+        <li>
+        {% if media.isImage %}
+          <a href="{{ url('media', {'id': media.id}) }}">
+            <img src="{{ asset(media.getWebPath) }}" alt="{{ media.nom }}" />
+          </a>
+        {% elseif media.isVideo %}
+          <video width="320" height="240" controls>
+            <source src="{{ asset(media.getWebPath) }}">
+            Votre navigateur ne supporte pas la vidéo.
+          </video>
+          <p>
+            <a href="{{ url('media', {'id': media.id}) }}">Lien vers le media</a>
+          </p>
+        {% else %}
+          <a href="{{ asset(media.getWebPath) }}" downloads>{{ media.nom }}</a>
+          <p>
+            <a href="{{ url('media', {'id': media.id}) }}">Lien vers le media</a>
+          </p>
+        {% endif %}
+        </li>
+      {% endfor %}
+    </ul>
   </section>
 
   <section id="partenaires">

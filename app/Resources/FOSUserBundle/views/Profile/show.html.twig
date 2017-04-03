@@ -4,12 +4,10 @@
 
 {% trans_default_domain 'FOSUserBundle' %}
 
-<a href="{{ url('fos_user_profile_edit') }}">Editer Mon profil</a>
-
 <div class="fos_user_user_show">
 
-    <p>{{ user.username }}</p>
-    <p>{{ 'profile.show.email'|trans }}: {{ user.email }}</p>
+    <h2>Bienvenue <b>{{ user.username }}</b> <a href="{{ url('fos_user_profile_edit') }}" class="button dark">Editer mon profil</a></h2>
+    <p>{{ 'profile.show.email'|trans }} : {{ user.email }}</p>
 
     <p>Rôle :
       {% if user.hasRole('ROLE_ADMIN') or user.hasRole('ROLE_SUPER_ADMIN') %}
@@ -17,7 +15,7 @@
       {% endif %}
     </p>
 
-    {{ dump(user) }}
+    {# dump(user) #}
 
 </div>
 {% endblock fos_user_content %}
