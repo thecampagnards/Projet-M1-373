@@ -34,11 +34,21 @@
     position: fixed;
     bottom: 25px;
 
+    p {
+      color: #ffffff;
+    }
+
+
+
       a.connect {
         background-color: #FFFFFF;
         color: $dark-color1;
         padding: 6px 10px;
         text-decoration: none;
+        display: inline-block;
+        margin: 5px 0;
+        width: 70%;
+        font-weight: bold;
 
         &:hover {
           color: #FFFFFF;
@@ -99,27 +109,27 @@
     text-align: left;
   }
   &.link-blue > a {
-    border-color: #487db2;
+    border-color: $blue-color;
     i.fa {
-      color: #487db2;
+      color: $blue-color;
     }
   }
   &.link-red > a {
-    border-color: #da4545;
+    border-color: $red-color;
     i.fa {
-      color: #da4545;
+      color: $red-color;
     }
   }
   &.link-yellow > a {
-    border-color: #d0d237;
+    border-color: $yellow-color;
     i.fa {
-      color: #d0d237;
+      color: $yellow-color;
     }
   }
   &.link-green > a {
-    border-color: #86be2e;
+    border-color: $green-color;
     i.fa {
-      color: #86be2e;
+      color: $green-color;
     }
   }
 }

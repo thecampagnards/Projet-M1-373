@@ -27,7 +27,7 @@
     </div>
   {% else %}
     <div class="bottom">
-      <p>Bienvenue {{ app.user.username }}</p>
+      <p>Bienvenue @{{ app.user.username }}</p>
       <a href="{{ url('fos_user_profile_show') }}" class="connect">Mon profil</a>
       {% if is_granted('ROLE_ADMIN') %}
         <a href="{{ url('sonata_admin_dashboard') }}" class="connect">Administration</a>

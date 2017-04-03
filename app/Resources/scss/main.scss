@@ -87,3 +87,75 @@ ul.medias {
     }
   }
 }
+
+.lemedia {
+  text-align: center;
+
+  img {
+    width: 78%;
+  }
+}
+
+form[method="post"] {
+  display: flex;
+  align-self: center;
+  flex-direction: column;
+  width: 50%;
+  justify-content: center;
+  margin: auto;
+  padding-top: 15px;
+
+  input:not([type="checkbox"]), textarea, button, a {
+    width: 90%;
+    margin: 0;
+    box-sizing: border-box;
+    display: block;
+    margin-bottom: 15px;
+  }
+
+  label.margin {
+    margin-bottom: 15px;
+  }
+
+  input[type="checkbox"] {
+    display: inline-block;
+  }
+
+  textarea {
+    height: 80px;
+  }
+
+  button[type="submit"], input[type="submit"], a.link  {
+    background-color: $dark-color1;
+    color: #ffffff;
+    padding: 10px 10px;
+    font-weight: bold;
+    border: none;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+
+  a.link {
+    text-align: center;
+    font-size: 0.8em;
+    padding: 5px 8px;
+    text-transform: none;
+    text-decoration: none;
+    width: 90%;
+  }
+}
+
+a.button {
+  background-color: #ffffff;
+  color: $dark-color1;
+  text-align: center;
+  font-size: 0.8em;
+  padding: 5px 8px;
+  text-transform: none;
+  text-decoration: none;
+
+  &.dark {
+    background-color: $dark-color1;
+    color: #ffffff;
+  }
+}
