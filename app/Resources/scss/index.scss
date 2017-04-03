@@ -8,13 +8,25 @@ a {
 
 nav {
   border-bottom: 2px solid $blue-color;
-  margin-bottom: 20px;
   width: 100%;
 
   ul {
+    margin: 0;
+    padding: 15px 10%;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+
     li {
       display: inline-block;
       list-style: none;
+
+
+      &.titre {
+        font-size: 1.2em;
+        font-weight: bold;
+        text-transform: uppercase;
+      }
     }
   }
 
@@ -27,9 +39,15 @@ header {
   text-align: center;
   width: 100%;
   margin-bottom: 20px;
+  background-color: $blue-color;
+  padding: 20px;
+  color: #ffffff;
+  margin-top: 25px;
+  box-sizing: border-box;
   
   a {
-    color: $blue-color;
+    font-weight: bold;
+    color: #ffffff;
   }
 }
 
@@ -125,5 +143,10 @@ footer {
 
   a {
     color: #fff;
+    font-weight: bold;
+
+    &:hover {
+      text-decoration: underline;
+    }
   }
 }

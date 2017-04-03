@@ -7,9 +7,11 @@
 {% block body %}
   <nav>
     <ul>
-      <li><a href="{{ url('homepage') }}"><i class="fa fa-video-camera"></i>Caméra</a></li>
+      <li class="titre"><a href="{{ url('homepage') }}"><i class="fa fa-video-camera"></i> Caméra</a></li>
       {% if app.user is empty %}
         <li><a href="{{ url('fos_user_security_login') }}">Connexion</a></li>
+      {% else %}
+        <li><a href="{{ url('fos_user_profile_show') }}">Bienvenue <b>@{{ app.user.username }}</b></a></li>
       {% endif %}
     </ul>
   </nav>
@@ -59,7 +61,7 @@
   </section>
 
   <footer>
-    Réalisé par <a href="http://evanguelard.fr" target="_blank">Evan Guélard</a> et <a href="http://konstantin-sidorenko.fr" target="_blank">Konstantin Sidorenko</a> -
-    <a href="http://isen-brest.fr/">ISEN Brest</a> - Tutelle de Monsieur Yves Auffret
+    Réalisé par <a href="http://evanguelard.fr" target="_blank">Evan Guélard</a> et <a href="http://konstantin-sidorenko.fr" target="_blank">Konstantin Sidorenko</a> |
+    Tutelle de Yves Auffret | <a href="http://isen-brest.fr/">ISEN Brest</a>
   </footer>
 {% endblock %}

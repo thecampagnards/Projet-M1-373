@@ -18,13 +18,15 @@
     <label for="password">{{ 'security.login.password'|trans }}</label>
     <input type="password" id="password" name="_password" required="required" />
 
-    <input type="checkbox" id="remember_me" name="_remember_me" value="on" />
-    <label for="remember_me">{{ 'security.login.remember_me'|trans }}</label>
+
+    <label for="remember_me" class="margin"><input type="checkbox" id="remember_me" name="_remember_me" value="on" /> {{ 'security.login.remember_me'|trans }}</label>
 
     <input type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans }}" />
+
+    <a href="{{ path("fos_user_resetting_request") }}" class="link">{{ 'resetting.password_forgot'|trans }}</a>
+    <a href="{{ path("fos_user_registration_register") }}" class="link">{{ 'registration.submit'|trans }}</a>
 </form>
 
-<a href="{{ path("fos_user_resetting_request") }}">{{ 'resetting.password_forgot'|trans }}</a>
-<a href="{{ path("fos_user_registration_register") }}">{{ 'registration.submit'|trans }}</a>
+
 
 {% endblock fos_user_content %}
