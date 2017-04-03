@@ -136,3 +136,18 @@ form[method="post"] {
     width: 90%;
   }
 }
+
+a.button {
+  background-color: #ffffff;
+  color: $dark-color1;
+  text-align: center;
+  font-size: 0.8em;
+  padding: 5px 8px;
+  text-transform: none;
+  text-decoration: none;
+
+  &.dark {
+    background-color: $dark-color1;
+    color: #ffffff;
+  }
+}

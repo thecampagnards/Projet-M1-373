@@ -46,6 +46,45 @@
     </ul>
   </section>
 
+  <style>
+    #camera {
+      height: 460px;
+      display: block;
+      position: relative;
+    }
+    #camera::after {
+      content: "";
+      background-image: url('{{ asset(camera.getWebPath) }}');
+      background-size: cover;
+      background-position: center;
+      background-color:rgba(0, 0, 0, 0.8);
+      opacity: 0.5;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      position: absolute;
+      z-index: -1;
+    }
+  </style>
+
+  <section id="camera">
+    <div class="visu">
+      <img src="{{ asset(camera.getWebPath) }}" alt="{{ camera.nom }}" class="offline">
+    </div>
+
+    <div class="description">
+      <h2>{{ camera.nom }}  <span class="etat"><i class="fa fa-circle"></i> Off</span></h2>
+      <p>{{ camera.description }}</p>
+
+      <a href="{{ url('camera', {'id': camera.id}) }}" class="button"> Accéder à la caméra</a>
+    </div>
+  </section>
+
+  <section id="populaires">
+
+  </section>
+
   <section id="partenaires">
     <h1>Partenaires</h1>
     <ul>

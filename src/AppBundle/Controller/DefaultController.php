@@ -13,6 +13,11 @@ class DefaultController extends Controller
      */
     public function indexAction(Request $request)
     {
-        return $this->render('pages/index.html.twig');
+        $camera = $this
+            ->getDoctrine()
+            ->getManager()
+            ->getRepository('AppBundle:Camera')->findOneByEtat(true);
+
+        return $this->render('pages/index.html.twig', array('camera' => $camera));
     }
 }
