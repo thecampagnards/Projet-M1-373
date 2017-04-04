@@ -24,6 +24,7 @@ h1 {
   border-bottom: 3px solid #222222;
   color: #222222;
   width: 100%;
+  margin-bottom: 30px;
 }
 
 ul.cameras {
@@ -94,6 +95,35 @@ ul.medias {
   img {
     width: 78%;
   }
+}
+
+a.vote-me {
+  color: $dark-color3;
+  margin-right: 3px;
+  cursor: pointer;
+  float: right;
+
+  &:hover {
+    opacity: 0.7;
+  }
+
+  i.fa-star {
+    color: $yellow-color;
+  }
+
+  i.fa-star-o {
+    color: $dark-color3;
+  }
+}
+
+.vote-count, .vote-label {
+  float: right;
+  vertical-align: baseline;
+}
+
+.vote-label {
+  padding-top: 7px;
+  margin-left: 4px;
 }
 
 form[method="post"] {

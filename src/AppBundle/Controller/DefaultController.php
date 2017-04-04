@@ -18,7 +18,7 @@ class DefaultController extends Controller
             ->getManager()
             ->getRepository('AppBundle:Camera')->findOneByEtat(true);
 
-        $medias = $this->getDoctrine()->getRepository('AppBundle:Media')->findBy(array(), array('vote' => 'DESC'));
+        $medias = $this->getDoctrine()->getRepository('AppBundle:Media')->findBy(array(), array('created' => 'DESC'));
 
         return $this->render('pages/index.html.twig', array('camera' => $camera, 'medias' => $medias));
     }
