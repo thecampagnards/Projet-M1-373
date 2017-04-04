@@ -9,7 +9,7 @@
     <ul>
       <li class="titre"><a href="{{ url('homepage') }}"><i class="fa fa-video-camera"></i> Caméra</a></li>
       {% if app.user is empty %}
-        <li><a href="{{ url('fos_user_security_login') }}">Connexion</a></li>
+        <li><a href="{{ url('fos_user_security_login') }}">Connexion</a> | <a href="{{ path("fos_user_registration_register") }}" class="link">Créer un compte</a></li>
       {% else %}
         <li><a href="{{ url('fos_user_profile_show') }}">Bienvenue <b>@{{ app.user.username }}</b></a></li>
       {% endif %}

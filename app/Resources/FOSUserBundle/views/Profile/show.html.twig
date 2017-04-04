@@ -6,16 +6,33 @@
 
 <div class="fos_user_user_show">
 
-    <h2>Bienvenue <b>{{ user.username }}</b> <a href="{{ url('fos_user_profile_edit') }}" class="button dark">Editer mon profil</a></h2>
+    <h1>Bienvenue <b>{{ user.username }}</b> </h1>
+    <a href="{{ url('fos_user_profile_edit') }}" class="button dark"><i class="fa fa-pencil"></i> Éditer</a><br><br>
+
+    <p>Type de compte :
+        {% if user.hasRole('ROLE_ADMIN') or user.hasRole('ROLE_SUPER_ADMIN') %}
+            Administrateur
+        {%  elseif user.cameras.length != 0 %}
+            Professionnel
+        {%  else %}
+            Utilisateur
+        {% endif %}
+    </p>
+    
     <p>{{ 'profile.show.email'|trans }} : {{ user.email }}</p>
 
-    <p>Rôle :
-      {% if user.hasRole('ROLE_ADMIN') or user.hasRole('ROLE_SUPER_ADMIN') %}
-        Administrateur
-      {% endif %}
-    </p>
+    <br>
+    <h1>Historique des votes</h1>
 
-    {# dump(user) #}
+    <ul class="medias">
+        {% for vote in user.votes %}
+            <li class="media">
+                {% include 'components/block/media.html.twig' with {'media': vote.media} %}
+                {% include 'components/block/vote.count.html.twig' with {'media': vote.media} %}
+                {% include 'components/block/vote.button.html.twig' with {'media': vote.media} %}
+            </li>
+        {% endfor %}
+    </ul>
 
 </div>
 {% endblock fos_user_content %}

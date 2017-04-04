@@ -16,6 +16,8 @@
     {%  for media in camera.medias %}
       <li class="media">
         {% include 'components/block/media.html.twig' with {'media': media} %}
+        {% include 'components/block/vote.count.html.twig' with {'media': media} %}
+        {% include 'components/block/vote.button.html.twig' with {'media': media} %}
       </li>
       {% endfor %}
   </ul>

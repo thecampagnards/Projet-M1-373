@@ -126,6 +126,13 @@ a.vote-me {
   margin-left: 4px;
 }
 
+.go-camera {
+  display: flex;
+  width: 200px;
+  justify-content: center;
+  margin: auto;
+}
+
 form[method="post"] {
   display: flex;
   align-self: center;
