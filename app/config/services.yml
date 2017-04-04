@@ -37,3 +37,7 @@ services:
     app.media_service:
         arguments:  ['@session', '@doctrine', '@security.token_storage']
         class: AppBundle\Service\MediaService
+
+    app.iframe_service:
+        arguments:  ['@request_stack', '@router']
+        class: AppBundle\Service\IframeService

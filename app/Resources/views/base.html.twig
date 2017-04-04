@@ -6,21 +6,20 @@
     <link rel="stylesheet" href="{{ asset('css/main.css') }}" />
     {% block stylesheets %}{% endblock %}
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
-    <script type="text/javascript" src="//platform-api.sharethis.com/js/sharethis.js#property=58e2494683b6f0001198da04&product=inline-share-buttons"></script>
   </head>
   <body>
-
-    {% if app.request.get('_route') != 'homepage' %}
+    {% if app.request.get('_route') != 'homepage' and not iframe_service.isIframe() %}
       {% include 'components/menu.html.twig' %}
       <div id="content">
     {% endif %}
 
       {% block body %}{% endblock %}
 
-    {% if app.request.get('_route') != 'homepage' %}
+    {% if app.request.get('_route') != 'homepage' and not iframe_service.isIframe() %}
       </div>
     {% endif %}
 
+    <script type="text/javascript" src="//platform-api.sharethis.com/js/sharethis.js#property=58e2494683b6f0001198da04&product=inline-share-buttons"></script>
     <script src="{{ asset('js/main.js') }}"></script>
     {% block javascripts %}{% endblock %}
   </body>
