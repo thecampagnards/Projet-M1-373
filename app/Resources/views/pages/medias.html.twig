@@ -3,11 +3,12 @@
 {% block body %}
 
   <h1>
-    Médias
-    {% if app.request.get('_route') == 'populaires' %}
-      populaires
-    {% elseif app.request.get('_route') == 'recents'%}
-      récents
+    {% if app.request.get('_route') == 'medias_populaires' %}
+      Médias populaires
+    {% elseif app.request.get('_route') == 'medias_recents'%}
+      Médias récents
+    {% elseif app.request.get('_route') == 'medias_photo_jour'%}
+      Photos du jour
     {% endif %}
   </h1>
 
@@ -20,6 +21,11 @@
       </li>
     {% endfor %}
   </ul>
+
+  <button class="btn" data-clipboard-text="  <iframe src='{{ url(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) }}' height='200px' width='400px'></iframe>">
+    Partager par iframe
+  </button>
+
 {% endblock %}
 
 {% block javascripts %}
