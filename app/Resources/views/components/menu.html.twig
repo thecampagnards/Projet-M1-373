@@ -12,8 +12,12 @@
       <a href="{{ url('medias_populaires') }}"><i class="fa fa-star"></i>Médias populaires</a>
     </div>
 
-    <div class="link-green{% if app.request.attributes.get('_route') == 'medias_derniers' %} selected{% endif %}">
-      <a href="{{ url('medias_derniers') }}"><i class="fa fa-clock-o"></i>Derniers médias</a>
+    <div class="link-green{% if app.request.attributes.get('_route') == 'medias_recents' %} selected{% endif %}">
+      <a href="{{ url('medias_recents') }}"><i class="fa fa-clock-o"></i>Médias récents</a>
+    </div>
+
+    <div class="link-red{% if app.request.attributes.get('_route') == 'medias_photo_jour' %} selected{% endif %}">
+      <a href="{{ url('medias_photo_jour') }}"><i class="fa fa-picture-o"></i>Photos du jour</a>
     </div>
 
     <div class="link-blue{% if app.request.attributes.get('_route') == 'contact' %} selected{% endif %}">
