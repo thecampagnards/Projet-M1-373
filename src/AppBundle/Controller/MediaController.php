@@ -33,11 +33,22 @@ class MediaController extends Controller
     }
 
     /**
-     * @Route("/derniers", name="medias_derniers")
+     * @Route("/recents", name="medias_recents")
      */
-    public function derniersAction()
+    public function recentsAction()
     {
         $medias = $this->getDoctrine()->getRepository('AppBundle:Media')->findBy(array(), array('created' => 'DESC')); //date
+        return $this->render('pages/medias.html.twig', array('medias' => $medias));
+    }
+
+    /**
+     * @Route("/photos-du-jour", name="medias_photo_jour")
+     */
+    public function jourAction()
+    {
+        $medias = $this->getDoctrine()
+                ->getManager()
+                ->getRepository('AppBundle:Media')->orderByJour();
         return $this->render('pages/medias.html.twig', array('medias' => $medias));
     }
 

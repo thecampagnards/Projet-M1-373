@@ -25,4 +25,26 @@ class MediaRepository extends \Doctrine\ORM\EntityRepository
           ->orderBy('countVotes', $order);
       return $qb->getQuery()->getResult();
     }
+
+    /**
+     * @param string $order
+     *
+     * @return result
+     */
+      public function orderByJour($order = 'DESC')
+      {
+        $from = new \DateTime("now 00:00:00");
+        $to = new \DateTime("now 23:59:59");
+
+        $qb = $this->_em->createQueryBuilder();
+        $qb->select('u, COUNT(v.id) AS HIDDEN countVotes')
+            ->from($this->_entityName, 'u')
+            ->innerJoin('u.votes', 'v')
+            ->groupBy('u.id')
+            ->andWhere('v.date BETWEEN :from AND :to')
+            ->orderBy('countVotes', $order)
+            ->setParameter('from', $from)
+            ->setParameter('to', $to);
+        return $qb->getQuery()->getResult();
+      }
 }
