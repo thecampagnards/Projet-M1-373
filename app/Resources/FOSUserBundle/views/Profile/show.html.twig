@@ -18,7 +18,7 @@
             Utilisateur
         {% endif %}
     </p>
-    
+
     <p>{{ 'profile.show.email'|trans }} : {{ user.email }}</p>
 
     <br>
@@ -27,7 +27,7 @@
     <ul class="medias">
         {% for vote in user.votes %}
             <li class="media">
-                {% include 'components/block/media.html.twig' with {'media': vote.media} %}
+                {% include 'components/block/media.html.twig' with {'media': vote.media, 'popup': false} %}
                 {% include 'components/block/vote.count.html.twig' with {'media': vote.media} %}
                 {% include 'components/block/vote.button.html.twig' with {'media': vote.media} %}
             </li>
