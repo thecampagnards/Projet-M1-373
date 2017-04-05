@@ -10,7 +10,6 @@ use AppBundle\Repository\apiKeyRepository;
 
 class ContactAdmin extends Admin
 {
-    public $supportsPreviewMode = true;
 
     /**
     * Configuration des champs à afficher dans les actions Edit et Create Contact de Sonata
@@ -19,7 +18,7 @@ class ContactAdmin extends Admin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-        ->add('nom', 'text', array('help '=> 'Nom du contact.'))
+        ->add('nom', 'text', array('help'=> 'Nom du contact.'))
         ->add('date', 'date', array('help' => 'Date du message.'))
         ->add('email', 'email', array('help' => 'Email du contact.'))
         ->add('message', 'textarea', array('help' => 'Message du contact.'))

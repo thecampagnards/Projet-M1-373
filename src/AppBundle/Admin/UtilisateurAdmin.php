@@ -6,11 +6,17 @@ use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
+use Symfony\Component\Form\CallbackTransformer;
+
+use AppBundle\Form\UtilisateurType;
 
 class UtilisateurAdmin extends AbstractAdmin
 {
     protected function configureFormFields(FormMapper $formMapper)
     {
+
+        $builder = $formMapper->getFormBuilder()->getFormFactory()->createBuilder(UtilisateurType::class);
+
         $formMapper
         ->add('username', 'text', array('help' => 'Veuillez indiquer le nom de compte.'))
         ->add('email', 'email', array('help' => 'L\'adresse mail de l\'utilisateur.'))
@@ -27,10 +33,15 @@ class UtilisateurAdmin extends AbstractAdmin
           'label' => 'Caméras',
           'help' => 'Les caméras associés à l\'utilisateur.'
         ), array('admin_code' => 'admin.camera'))
+
+        ->add($builder->get('ipNdd'))
+
         /*->add('ipNdd', 'sonata_type_model', array(
-                        'required' => false,
-                        'expanded' => true,
-                        'multiple' => true
+          'required' => false,
+          'expanded' => true,
+          'multiple' => true,
+          'label' => 'IP / Noms de domaine',
+          'help' => 'Les ip et noms de domaine associés à l\'utilisateur.'
         ))*/
         ;
     }

@@ -34,7 +34,7 @@ class MediaService
 
   public function checkUtilisateur(Media $media)
   {
-    return $this->doctrine->getRepository('AppBundle:Vote')->findOneBy(array('media' => $media, 'utilisateur' => $this->tokenStorage->getToken()->getUser())) ?? null;
+    return $this->doctrine->getRepository('AppBundle:Vote')->findOneBy(array('media' => $media, 'utilisateur' => $this->tokenStorage->getToken()->getUser()));
   }
 
   public function check(Media $media)
