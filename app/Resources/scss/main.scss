@@ -2,6 +2,7 @@
 @import "_grid.scss";
 @import "_menu.scss";
 @import "_font-awesome.scss";
+@import "_magnific-popup.scss";
 
 * {
   font-family: Arial;
@@ -183,9 +184,15 @@ a.button {
   padding: 5px 8px;
   text-transform: none;
   text-decoration: none;
+  cursor: pointer;
 
   &.dark {
     background-color: $dark-color1;
     color: #ffffff;
   }
+}
+
+.media-links {
+  text-align: center;
+  width: 100%;
 }

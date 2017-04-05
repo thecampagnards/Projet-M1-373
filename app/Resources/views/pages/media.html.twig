@@ -5,11 +5,16 @@
   <h1>{{ media.nom }} <small>{{ media.created|date('d/m/Y') }}</small> <small class="vote-label"> Vote(s)</small>{% include 'components/block/vote.count.html.twig' with {'media': media} %}{% include 'components/block/vote.button.html.twig' with {'media': media} %}</h1>
 
   <div class="lemedia">
-      {% include 'components/block/media.html.twig' with {'media': media} %}
+      {% include 'components/block/media.html.twig' with {'media': media, 'popup': true} %}
   </div>
   <br>
   <div class="sharethis-inline-share-buttons"></div>
   <br>
+  <div class="media-links"><a href="{{ path('camera', { id:media.camera.id}) }}" class="button dark">Voir la caméra associée</a>&nbsp;<a class="btn button dark" data-clipboard-text="<iframe src='{{ url(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) }}' height='200px' width='400px'></iframe>">
+      Partager par iframe (clique pour copier le lien)
+    </a>
+  </div>
+
 
 
 

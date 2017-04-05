@@ -12,19 +12,30 @@
     {% endif %}
   </h1>
 
+    <i>
+        {% if app.request.get('_route') == 'medias_populaires' %}
+            Médias les plus votés.
+        {% elseif app.request.get('_route') == 'medias_recents'%}
+            Médias ajoutés récement.
+        {% elseif app.request.get('_route') == 'medias_photo_jour'%}
+            Photos les plus votées aujourd'hui.
+        {% endif %}
+        &nbsp;&nbsp;<a class="btn button dark" data-clipboard-text="<iframe src='{{ url(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) }}' height='200px' width='400px'></iframe>">
+            Partager par iframe (clique pour copier le lien)
+        </a>
+    </i><br><br>
+
   <ul class="medias">
     {% for media in medias %}
       <li class="media">
-        {% include 'components/block/media.html.twig' with {'media': media} %}
+        {% include 'components/block/media.html.twig' with {'media': media, 'popup': false} %}
         {% include 'components/block/vote.count.html.twig' with {'media': media} %}
         {% include 'components/block/vote.button.html.twig' with {'media': media} %}
       </li>
     {% endfor %}
   </ul>
 
-  <button class="btn" data-clipboard-text="  <iframe src='{{ url(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) }}' height='200px' width='400px'></iframe>">
-    Partager par iframe
-  </button>
+
 
 {% endblock %}
 

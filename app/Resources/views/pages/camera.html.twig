@@ -8,6 +8,9 @@
     </div>
     <div class="col-sm-8">
       <p>{{ camera.description }}</p>
+      <p><a class="btn button dark" data-clipboard-text="<iframe src='{{ url(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) }}' height='200px' width='400px'></iframe>">
+          Partager par iframe (clique pour copier le lien)
+        </a></p>
     </div>
   </div>
 
@@ -16,6 +19,8 @@
     {%  for media in camera.medias %}
       <li class="media">
         {% include 'components/block/media.html.twig' with {'media': media} %}
+        {% include 'components/block/vote.count.html.twig' with {'media': media} %}
+        {% include 'components/block/vote.button.html.twig' with {'media': media} %}
       </li>
       {% endfor %}
   </ul>
