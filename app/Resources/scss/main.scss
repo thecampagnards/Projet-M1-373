@@ -98,6 +98,15 @@ ul.medias {
   }
 }
 
+.streaming {
+  text-align: center;
+  width: 100%;
+
+  img {
+    max-width: 100%;
+  }
+}
+
 a.vote-me {
   color: $dark-color3;
   margin-right: 3px;
