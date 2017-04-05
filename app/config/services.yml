@@ -41,3 +41,6 @@ services:
     app.iframe_service:
         arguments:  ['@request_stack', '@router']
         class: AppBundle\Service\IframeService
+
+    app.stream_service:
+        class: AppBundle\Service\StreamService
