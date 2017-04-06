@@ -62,6 +62,7 @@ class Media extends BaseFile
      private $created;
 
      private $votesCount;
+
      public function getVotesCount(){
         return count($this->getVotes());
     }
@@ -69,6 +70,11 @@ class Media extends BaseFile
     public function __construct()
     {
         $this->setCreated(new \DateTime("now"));
+    }
+
+    public function __toString()
+    {
+        return (string) $this->nom;
     }
 
     protected function getUploadDir()
