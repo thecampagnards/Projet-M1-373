@@ -71,7 +71,7 @@
                 <i class="fa fa-circle"></i> Off
               {% endif %}
             </span>
-            {% if stream_on %} <div class="viewer"><i class="fa fa-eye"></i> <span id="nb-viewer">{{ camera.viewer }}</span></div>{% endif %}
+            {% if stream_on %} <div class="viewer"><i class="fa fa-eye"></i> <span id="nb-viewer">{{ camera.viewer }}</span></div> {% endif %}
           </h2>
           <p>{{ camera.description }}</p>
           <a href="{{ url('camera', {'id': camera.id}) }}" class="button"> Accéder à la caméra</a>
@@ -153,4 +153,8 @@
     Tutelle de Yves Auffret | <a href="http://isen-brest.fr/">ISEN Brest</a> | Propulsé par <a
             href="https://www.ovh.com/fr/">OVH</a>
   </footer>
+{% endblock %}
+
+{% block javascripts %}
+    {% include 'components/block/stream.js.html.twig' %}
 {% endblock %}
