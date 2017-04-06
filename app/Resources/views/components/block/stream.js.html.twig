@@ -1,0 +1,22 @@
+
+<script>
+  $('#stream-flux').ready(function(){
+    var idCamera = $('#stream-flux').attr('data-camera')
+    $.ajax({
+      url: '{{ path('cameras_ajax_spectateur') }}',
+      method: 'POST',
+      data: {
+        idCamera: idCamera
+      }
+    })
+    window.onbeforeunload = function(){
+       $.ajax({
+         url: '{{ path('cameras_ajax_despectateur') }}',
+         method: 'POST',
+         data: {
+           idCamera: idCamera
+         }
+       })
+    }
+  })
+</script>

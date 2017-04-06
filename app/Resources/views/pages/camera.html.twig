@@ -25,3 +25,8 @@
       {% endfor %}
   </ul>
 {% endblock %}
+
+{% block javascripts %}
+  {% include 'components/block/vote.js.html.twig' %}
+  {% include 'components/block/stream.js.html.twig' %}
+{% endblock %}
