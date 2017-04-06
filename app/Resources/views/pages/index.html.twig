@@ -71,7 +71,7 @@
                 <i class="fa fa-circle"></i> Off
               {% endif %}
             </span>
-            {% if stream_on %} <span class="viewer"><i class="fa fa-eye"></i> {{ camera.viewer }}</span>{% endif %}
+            {% if stream_on %} <div class="viewer"><i class="fa fa-eye"></i> <span id="nb-viewer">{{ camera.viewer }}</span></div>{% endif %}
           </h2>
           <p>{{ camera.description }}</p>
           <a href="{{ url('camera', {'id': camera.id}) }}" class="button"> Accéder à la caméra</a>
