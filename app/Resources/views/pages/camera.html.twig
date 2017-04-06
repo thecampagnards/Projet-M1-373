@@ -14,12 +14,10 @@
     </div>
   </div>
 
-
-
-    {% if stream_service.streamOnline('http://' ~ camera.ip ~ '/mjpg/video.mjpg') %}
-      <h1>Streaming en direct</h1>
-      <div class="streaming"><img src="http://{{ camera.ip }}/mjpg/video.mjpg" /></div>
-    {% endif %}
+  {% if stream_service.streamOnline('http://' ~ camera.ip ~ '/mjpg/video.mjpg') %}
+    <h1>Streaming en direct</h1>
+    <div class="streaming"><img src="http://{{ camera.ip }}/mjpg/video.mjpg" id="stream-flux" data-camera="{{ camera.id }}"/></div>
+  {% endif %}
 
   <h1>Médias associés</h1>
   <ul class="medias">
