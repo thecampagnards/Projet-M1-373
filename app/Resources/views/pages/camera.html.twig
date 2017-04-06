@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-  <h1>{{ camera.nom }}</h1>
+  <h1>{{ camera.nom }} {% if stream_service.streamOnline('http://' ~ camera.ip ~ '/mjpg/video.mjpg') %} <span class="viewer"><i class="fa fa-eye"></i> {{ camera.viewer }}</span>{% endif %}</h1>
   <div class="row">
     <div class="col-sm-4">
       <img src="{{ asset(camera.getWebPath) }}" alt="{{ camera.nom }}">
@@ -14,8 +14,12 @@
     </div>
   </div>
 
-  <h1>Streaming en direct</h1>
-  <div class="streaming"><img src="http://192.168.197.20/mjpg/video.mjpg" /></div>
+
+
+    {% if stream_service.streamOnline('http://' ~ camera.ip ~ '/mjpg/video.mjpg') %}
+      <h1>Streaming en direct</h1>
+      <div class="streaming"><img src="http://{{ camera.ip }}/mjpg/video.mjpg" /></div>
+    {% endif %}
 
   <h1>Médias associés</h1>
   <ul class="medias">

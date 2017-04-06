@@ -103,6 +103,10 @@ section {
         font-size: 0.7em;
         padding: 5px;
         float: right;
+
+        .stream-on {
+          color: $green-color;
+        }
       }
 
       a {
@@ -146,6 +150,26 @@ section {
 
     a {
       color: #fff;
+    }
+
+    ul {
+      text-align: center;
+    }
+
+    li {
+      list-style: none;
+      display: inline-block;
+      height: 85px;
+      margin: 12px 20px;
+
+      img {
+        height: 100%;
+        opacity: 0.8;
+
+        &:hover {
+          opacity: 1;
+        }
+      }
     }
   }
 
@@ -211,6 +235,7 @@ footer {
   color: #FFFFFF;
   text-align: center;
   padding: 15px;
+  font-size: 14px;
 
   a {
     color: #fff;

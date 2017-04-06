@@ -13,13 +13,13 @@ class DefaultController extends Controller
      */
     public function indexAction(Request $request)
     {
-        $camera = $this
+        $cameras = $this
             ->getDoctrine()
             ->getManager()
-            ->getRepository('AppBundle:Camera')->findOneByEtat(true);
+            ->getRepository('AppBundle:Camera')->findByEtat(true);
 
         $medias = $this->getDoctrine()->getRepository('AppBundle:Media')->findBy(array(), array('created' => 'DESC'));
 
-        return $this->render('pages/index.html.twig', array('camera' => $camera, 'medias' => $medias));
+        return $this->render('pages/index.html.twig', array('cameras' => $cameras, 'medias' => $medias));
     }
 }
