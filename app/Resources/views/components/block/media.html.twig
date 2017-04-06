@@ -1,6 +1,6 @@
 
 {% if media.isImage %}
-    {% if popup %}
+    {% if popup is defined and popup %}
         <a href="{{ asset(media.getWebPath) }}" class="popup-image-link">
             <img src="{{ asset(media.getWebPath) }}" alt="{{ media.nom }}" />
         </a>

@@ -17,6 +17,6 @@ class StreamService
 
   public function streamOnline($url)
   {
-    ($this->getHttpResponseCode($url) == 200) ? true : false;
+    return ($this->getHttpResponseCode($url) == 200) ? true : false;
   }
 }
