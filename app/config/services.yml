@@ -10,6 +10,11 @@ services:
 
 
 
+    app.profile.form.type:
+        class: AppBundle\Form\ProfileType
+        tags:
+            - { name: form.type, alias: app_user_profile_edit }
+
     admin.camera:
         class: AppBundle\Admin\CameraAdmin
         arguments: [~, AppBundle\Entity\Camera, ~]
