@@ -98,7 +98,8 @@ ul.medias {
   text-align: center;
 
   img {
-    width: 78%;
+    max-width: 90%;
+    max-height: 600px;
   }
 }
 
@@ -214,4 +215,16 @@ a.button {
 .media-links {
   text-align: center;
   width: 100%;
+}
+.alert {
+  text-align: center;
+  padding: 8px;
+
+  &.alert-success {
+    background-color: $green-color;
+  }
+
+  &.alert-error {
+    background-color: $red-color;
+  }
 }
