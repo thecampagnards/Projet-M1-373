@@ -15,12 +15,10 @@
     <source src="{{ asset(media.getWebPath) }}">
     Votre navigateur ne supporte pas la vidéo.
    </video>
-   <p>
-     <a href="{{ url('media', {'id': media.id}) }}">Lien vers le media</a>
-   </p>
+    {% if not(popup is defined and popup) %}
+        <a href="{{ url('media', {'id': media.id}) }}">Lien vers le media</a>
+    {% endif %}
 {% else %}
-  <a href="{{ asset(media.getWebPath) }}" downloads>{{ media.nom }}</a>
-  <p>
+    <a href="{{ asset(media.getWebPath) }}" downloads>{{ media.nom }}</a>
     <a href="{{ url('media', {'id': media.id}) }}">Lien vers le media</a>
-  </p>
 {% endif %}

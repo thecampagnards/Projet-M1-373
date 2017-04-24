@@ -16,7 +16,7 @@ class BaseFile
   protected $media;
 
   /**
-   * @Assert\File(maxSize="6000000")
+   * @Assert\File(maxSize="250000000")
    */
   protected $file;
 

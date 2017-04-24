@@ -67,10 +67,13 @@ ul.cameras {
 ul.medias {
   margin: 0;
   padding: 0;
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
 
   li.media {
     list-style: none;
-    width: 280px;
+    width: 320px;
     display: inline-block;
     padding: 10px;
 
@@ -80,6 +83,7 @@ ul.medias {
 
     a {
       text-decoration: none;
+      color: inherit;
     }
 
     &:hover {
