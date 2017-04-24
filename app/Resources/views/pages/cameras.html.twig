@@ -18,9 +18,11 @@
   <h1>Caméras publiques</h1>
   <ul class="cameras">
     {% for camera in cameras %}
-      <li class="camera">
-        {% include 'components/block/camera.html.twig' with {'camera': camera} %}
-      </li>
+        {% if camera.etat %}
+        <li class="camera">
+          {% include 'components/block/camera.html.twig' with {'camera': camera} %}
+        </li>
+        {% endif %}
       {% endfor %}
   </ul>
 {% endblock %}
