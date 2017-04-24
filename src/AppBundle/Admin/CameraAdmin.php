@@ -72,7 +72,7 @@ class CameraAdmin extends AbstractAdmin
     {
         $listMapper
         ->addIdentifier('nom')
-        ->add('image', 'string', array('template' => 'components/admin/list_media.html.twig'))
+        ->add('image', 'string', array('template' => 'components/admin/list_camera.html.twig'))
         ->addIdentifier('ip')
         ->addIdentifier('viewer', array(), array('label' => 'Spectateurs'))
         ->addIdentifier('utilisateurs')
