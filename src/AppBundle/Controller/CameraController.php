@@ -105,7 +105,7 @@ class CameraController extends Controller
     /**
      * @Route("/cameras/reset", name="cameras_reset")
      */
-    public function resetAction()
+    private function resetAction()
     {
         // on récupère les cameras
         $cameras = $this->getDoctrine()->getRepository('AppBundle:Camera')->findAll();
