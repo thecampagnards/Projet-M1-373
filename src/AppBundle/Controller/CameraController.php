@@ -101,4 +101,22 @@ class CameraController extends Controller
         }
         return new Response('pok', 400);
     }
+
+    /**
+     * @Route("/cameras/reset", name="cameras_reset")
+     */
+    public function resetAction()
+    {
+        // on récupère les cameras
+        $cameras = $this->getDoctrine()->getRepository('AppBundle:Camera')->findAll();
+        $em = $this->getDoctrine()->getManager();
+        foreach ($cameras as $camera) {
+          // on met les viewers à 0
+          $camera->setViewer(0);
+          // on le push en bdd
+          $em->persist($camera);
+        }
+        $em->flush();
+        return new Response('ok', 200);
+    }
 }
