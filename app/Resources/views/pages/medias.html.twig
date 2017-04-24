@@ -25,15 +25,19 @@
         </a>
     </i><br><br>
 
-  <ul class="medias">
-    {% for media in medias %}
-      <li class="media">
-        {% include 'components/block/media.html.twig' with {'media': media, 'popup': false} %}
-        {% include 'components/block/vote.count.html.twig' with {'media': media} %}
-        {% include 'components/block/vote.button.html.twig' with {'media': media} %}
-      </li>
-    {% endfor %}
-  </ul>
+    {% if medias is empty %}
+        Il n'y a pas de médias associés à la caméra.
+    {% else %}
+        <ul class="medias">
+            {% for media in medias %}
+              <li class="media">
+                {% include 'components/block/media.html.twig' with {'media': media, 'popup': false} %}
+                {% include 'components/block/vote.count.html.twig' with {'media': media} %}
+                {% include 'components/block/vote.button.html.twig' with {'media': media} %}
+              </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
 
 {% endblock %}
 

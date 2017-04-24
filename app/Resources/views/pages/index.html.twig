@@ -55,7 +55,7 @@
       {% if stream_on or camera == cameras[cameras|length - 1] %}
         <div class="visu">
             {% if stream_on %}
-              <div class="streaming"><img src="http://{{ camera.ip }}/mjpg/video.mjpg" id="stream-flux" data-camera="{{ camera.id }}" /></div>
+              <img src="http://{{ camera.ip }}/mjpg/video.mjpg" id="stream-flux" data-camera="{{ camera.id }}" />
             {%  else %}
               <img src="{{ asset(camera.getWebPath) }}" alt="{{ camera.nom }}" class="offline">
             {% endif %}
