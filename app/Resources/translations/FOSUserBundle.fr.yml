@@ -21,6 +21,9 @@ profile:
         email: 'Adresse e-mail'
     edit:
         submit: 'Mettre à jour'
+    delete:
+        submit: 'Supprimer mon compte'
+        message: 'Voulez-vous supprimer votre compte ?'
     flash:
         updated: 'Le profil a été mis à jour.'
 change_password:
