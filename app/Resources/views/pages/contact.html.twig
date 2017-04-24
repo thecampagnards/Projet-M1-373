@@ -3,12 +3,10 @@
 {% block body %}
   <h1>Contactez-nous</h1>
 
-  {% if valide is defined %}
-    {% if valide %}
+  {% if form.vars.submitted and form.vars.valid %}
       <div class="alert alert-success" role="alert">Votre message a bien été envoyé</div>
-    {% else %}
+  {% elseif form.vars.submitted %}
       <div class="alert alert-danger" role="alert">Il y a eu une problème lors de l'envoi de votre message</div>
-    {% endif %}
   {% endif %}
 
   {{ form_start(form, {'attr': {'class': 'form-horizontal', 'id': 'contact',} }) }}
@@ -26,6 +24,11 @@
       {{ form_label(form.message, 'Message') }}
       {{ form_errors(form.message, {'attr': {'class': 'form-control'}}) }}
       {{ form_widget(form.message, {'attr': {'class': 'form-control'}}) }}
+    </div>
+    <div class="form-group">
+      {{ form_label(form.copie, 'Recevoir une copie') }}
+      {{ form_errors(form.copie, {'attr': {'class': 'form-control'}}) }}
+      {{ form_widget(form.copie, {'attr': {'class': 'form-control'}}) }}
     </div>
     <div class="form-group">
       {{ form_widget(form.submit, {'attr': {'class': 'btn btn-default center-block'}}) }}

@@ -30,10 +30,15 @@ class ContactController extends Controller
                     ->getManager()
                     ->getRepository('AppBundle:Utilisateur')->findEmailsByRole('ADMIN');
 
+            if($form->get('copie')->getData()){
+              dump('ok');
+              $adminMails[] = $contact->getEmail();
+            }
+
             $message = \Swift_Message::newInstance()
               ->setSubject('Contact depuis votre site')
               ->setFrom($this->getParameter('mailer_user'))
-              ->setTo($adminMails)
+              ->setBcc($adminMails)
               ->setBody(
                 $this->renderView(
                   'emails/contact.html.twig',
@@ -43,12 +48,8 @@ class ContactController extends Controller
               );
             //envoi du mail
             $this->get('mailer')->send($message);
-            return $this->render('pages/contact.html.twig', array('form' => $form->createView(), 'valide' => true));
-          }else{
-            return $this->render('pages/contact.html.twig', array('form' => $form->createView(), 'valide' => false));
           }
         }
-
         return $this->render('pages/contact.html.twig', array('form' => $form->createView()));
     }
 }
