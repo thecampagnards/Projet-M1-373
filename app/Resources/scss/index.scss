@@ -75,7 +75,6 @@ section {
     }
 
     .visu {
-      width: 50%;
       overflow: hidden;
       text-align: right;
 
@@ -92,6 +91,7 @@ section {
       width: 50%;
       background-color: $dark-color3;
       color: #ffffff;
+      min-width: 320px;
 
       h2 {
         margin: 0;
@@ -105,7 +105,7 @@ section {
         float: right;
 
         .stream-on {
-          color: $green-color;
+          color: $red-color;
         }
       }
 

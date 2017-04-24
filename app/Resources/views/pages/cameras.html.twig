@@ -16,11 +16,15 @@
   {% endif %}
 
   <h1>Caméras publiques</h1>
-  <ul class="cameras">
-    {% for camera in cameras %}
-      <li class="camera">
-        {% include 'components/block/camera.html.twig' with {'camera': camera} %}
-      </li>
-      {% endfor %}
-  </ul>
+    {% if medias is empty %}
+        Il n'y a pas de caméra.
+    {% else %}
+      <ul class="cameras">
+        {% for camera in cameras %}
+          <li class="camera">
+            {% include 'components/block/camera.html.twig' with {'camera': camera} %}
+          </li>
+          {% endfor %}
+      </ul>
+    {% endif %}
 {% endblock %}
