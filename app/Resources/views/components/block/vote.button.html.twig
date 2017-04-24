@@ -1,4 +1,4 @@
-<a class="vote-me" data-media="{{ media.id }}" data-votable="{% if media_service.check(media) %}false{% else %}true{% endif %}">
+<a class="vote-me" data-media="{{ media.id }}" title="Cliquez pour voter / dévoter" data-votable="{% if media_service.check(media) %}false{% else %}true{% endif %}">
   {% if media_service.check(media) %}
   <i class="fa fa-star voted"></i>
   {% else %}
