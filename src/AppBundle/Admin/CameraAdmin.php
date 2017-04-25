@@ -31,6 +31,7 @@ class CameraAdmin extends AbstractAdmin
         ->add('description', 'textarea', array('help' => 'Une description de la caméra.', 'required' => false))
         ->add('ip', 'text', array('help' => 'L\'adresse ip de la caméra pour récupérer les médias.', 'required' => false))
         ->add('email', 'email', array('help' => 'L\'adresse mail de la caméra pour récupérer les médias.', 'required' => false))
+        ->add('emailPassword', 'password', array('help' => 'Mot de passe de l\'adresse mail de la caméra pour récupérer les médias.', 'required' => false))
         ->add('etat', 'choice', array('help'=>'Activer si vous voulez rendre la caméra public ou privée.', 'choices' => array(
           'Privé' => '0',
           'Public' => '1'

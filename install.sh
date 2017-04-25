@@ -32,7 +32,7 @@ apt-get -y upgrade
 debconf-set-selections <<< 'mysql-server mysql-server/root_password password ' $password_mysql
 debconf-set-selections <<< 'mysql-server mysql-server/root_password_again password ' $password_mysql
 apt-get -y install mysql-server
-apt-get -y install php apache2 php-mysql git sendmail npm wget
+apt-get -y install php apache2 php-mysql git sendmail npm wget php-imap
 a2enmod rewrite
 
 # configuration serveur mail
@@ -73,6 +73,7 @@ php bin/console doctrine:schema:update --force
 # installation tache cron
 crontab -l > mycron
 echo "00 00 * * * php $script_dir/bin/console app:camera-reset > /dev/null 2>&1" >> mycron
+echo "00 00 * * * wget --spider http://$nom_domaine/cron/mail > /dev/null 2>&1" >> mycron
 echo "00 00 * * * wget --spider http://$nom_domaine/cron/file > /dev/null 2>&1" >> mycron
 crontab mycron
 rm mycron

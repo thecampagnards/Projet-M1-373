@@ -19,3 +19,5 @@ parameters:
     secret:            ThisTokenIsNotSoSecretChangeIt
 
     nomdusite: Caméra
+    mailer_inbox_host: imap.gmail.com
+    mailer_inbox_port: 993

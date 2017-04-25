@@ -58,6 +58,13 @@ class Camera extends BaseFile
     private $email;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="emailPassword", type="string", length=255, nullable=true)
+     */
+    private $emailPassword;
+
+    /**
      * @var int
      *
      * @ORM\Column(name="viewer", type="integer", nullable=true)
@@ -314,5 +321,29 @@ class Camera extends BaseFile
     public function getUtilisateurs()
     {
         return $this->utilisateurs;
+    }
+
+    /**
+     * Set emailPassword
+     *
+     * @param string $emailPassword
+     *
+     * @return Camera
+     */
+    public function setEmailPassword($emailPassword)
+    {
+        $this->emailPassword = $emailPassword;
+
+        return $this;
+    }
+
+    /**
+     * Get emailPassword
+     *
+     * @return string
+     */
+    public function getEmailPassword()
+    {
+        return $this->emailPassword;
     }
 }
