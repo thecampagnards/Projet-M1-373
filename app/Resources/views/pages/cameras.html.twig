@@ -1,5 +1,7 @@
 {% extends 'base.html.twig' %}
 
+{% block title %} Liste des caméras | {{ nomdusite }}{% endblock %}
+
 {% block body %}
 
   {% if is_granted('ROLE_USER') and app.user.cameras|length != 0 %}

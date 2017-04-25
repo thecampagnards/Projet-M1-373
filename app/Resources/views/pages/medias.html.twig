@@ -1,5 +1,15 @@
 {% extends 'base.html.twig' %}
 
+{% block title %}
+    {% if app.request.get('_route') == 'medias_populaires' %}
+        Médias populaires | {{ nomdusite }}
+    {% elseif app.request.get('_route') == 'medias_recents'%}
+        Médias récents | {{ nomdusite }}
+    {% elseif app.request.get('_route') == 'medias_photo_jour'%}
+        Photos du jour | {{ nomdusite }}
+    {% endif %}
+{% endblock %}
+
 {% block body %}
 
   <h1>

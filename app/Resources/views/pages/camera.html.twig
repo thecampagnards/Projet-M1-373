@@ -1,5 +1,7 @@
 {% extends 'base.html.twig' %}
 
+{% block title %} {{ camera.nom }} | {{ nomdusite }}{% endblock %}
+
 {% block body %}
   <h1>{{ camera.nom }} {% if stream_service.streamOnline('http://' ~ camera.ip ~ '/mjpg/video.mjpg') %} <div class="viewer" title="Nombre de personnes à regarder le direct"><i class="fa fa-eye"></i> <span id="nb-viewer">{{ camera.viewer }}</span></div> {% endif %}</h1>
   <div class="row">
