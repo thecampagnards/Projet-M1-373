@@ -7,7 +7,7 @@ if [[ $EUID -ne 0 ]]; then
 fi
 
 # check arguments script
-if [ "$#" -ne 2 ]; then
+if [[ $# -ne 2 ]]; then
   echo -e "\e[1;31mLes arguments passés au script ne sont pas bons.
 Ils doit y avoir le mot de passe du serveur mysql et le nom de domain du site.
 
@@ -16,7 +16,10 @@ exemple : ./install.sh motdepassesql monnomdedomaine.fr\e[0m" 1>&2
 fi
 
 # check du nom de domaines
-
+if ! [[ $2 =~ ^[a-zA-Z0-9][a-zA-Z0-9-]{1,61}[a-zA-Z0-9]\.[a-zA-Z]{2,}$ ]]; then
+  echo -e "\e[1;31mLe nom de domaine n'est pas correct.\e[0m" 1>&2
+  exit 1
+fi
 
 # paramètres du script
 password_mysql="$1"
@@ -29,7 +32,7 @@ apt-get -y upgrade
 debconf-set-selections <<< 'mysql-server mysql-server/root_password password ' $password_mysql
 debconf-set-selections <<< 'mysql-server mysql-server/root_password_again password ' $password_mysql
 apt-get -y install mysql-server
-apt-get -y install php apache2 php-mysql git sendmail npm
+apt-get -y install php apache2 php-mysql git sendmail npm wget
 a2enmod rewrite
 
 # configuration serveur mail
@@ -51,7 +54,7 @@ echo "parameters:
     database_password: $password_mysql
     mailer_transport: smtp
     mailer_host: 127.0.0.1
-    mailer_user: no-reply@camera.fr
+    mailer_user: no-reply@$nom_domaine
     mailer_password: null
     secret: 7cefea36bb067ca8d049edf2028080c8ebab1b60" > app/config/parameters.yml
 php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
@@ -70,6 +73,7 @@ php bin/console doctrine:schema:update --force
 # installation tache cron
 crontab -l > mycron
 echo "00 00 * * * php $script_dir/bin/console app:camera-reset > /dev/null 2>&1" >> mycron
+echo "00 00 * * * wget --spider http://$nom_domaine/cron/file > /dev/null 2>&1" >> mycron
 crontab mycron
 rm mycron
 
