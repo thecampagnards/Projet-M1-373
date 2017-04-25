@@ -185,7 +185,9 @@ class CronController extends Controller
         imap_expunge($inbox);
         imap_close($inbox);
       } catch (\Exception $e) {
-        continue;
+        print_r('camera id : ' . $camera->getId(). ' ');
+        print_r(imap_errors());
+        echo '<br/>';
       }
     }
 
