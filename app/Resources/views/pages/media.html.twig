@@ -1,5 +1,8 @@
 {% extends 'base.html.twig' %}
 
+{% block title %} {{ media.nom }} - {{ media.camera.nom }} | {{ nomdusite }}{% endblock %}
+
+
 {% block body %}
 
   <h1>{{ media.nom }} <small>{{ media.created|date('d/m/Y') }}</small> <small class="vote-label"> Vote(s)</small>{% include 'components/block/vote.count.html.twig' with {'media': media} %}{% include 'components/block/vote.button.html.twig' with {'media': media} %}</h1>

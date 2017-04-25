@@ -42,6 +42,7 @@ twig:
         media_service: "@app.media_service"
         iframe_service: "@app.iframe_service"
         stream_service: "@app.stream_service"
+        nomdusite: '%nomdusite%'
 
 # Doctrine Configuration
 doctrine:
