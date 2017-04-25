@@ -8,6 +8,28 @@
 
   {{ form_errors(form) }}
 
+  {{ form_row(form.username) }}
+  {{ form_row(form.email) }}
+
+  {% if form.ipNdd is defined %}
+  <div>
+
+      {{ form_label(form.ipNdd) }}
+
+      <ul id="ipNdd-fields-list" data-prototype="{{ form_widget(form.ipNdd.vars.prototype)|e }}">
+        {% for ipNddField in form.ipNdd %}
+            <li>
+                {{ form_errors(ipNddField) }}
+                {{ form_widget(ipNddField) }}
+                <a href="#" class="remove">Supprimer cette IP ou ce nom domaine</a>
+            </li>
+        {% endfor %}
+      </ul>
+
+      <a href="#" id="add-another-ipNdd">Ajouter une IP ou un nom de domaine</a>
+  </div>
+  {% endif %}
+
   {{ form_rest(form) }}
 
   <div>
@@ -32,5 +54,29 @@
       }
     })
   })
+
+{% if form.ipNdd is defined %}
+  var ipNddCount = '{{ form.ipNdd|length }}'
+
+  jQuery(document).ready(function() {
+
+    $('.remove').click(function(e) {
+      e.preventDefault()
+      $(this).parent().remove()
+      return false
+    })
+
+    jQuery('#add-another-ipNdd').click(function(e) {
+      e.preventDefault()
+      var ipNddList = jQuery('#ipNdd-fields-list')
+      var newWidget = ipNddList.attr('data-prototype')
+      newWidget = newWidget.replace(/__name__/g, ipNddCount)
+      ipNddCount++
+      var newLi = jQuery('<li></li>').html(newWidget)
+      newLi.appendTo(ipNddList)
+      return false
+    })
+  })
+{% endif %}
 </script>
 {% endblock %}

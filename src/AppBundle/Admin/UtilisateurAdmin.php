@@ -15,7 +15,7 @@ class UtilisateurAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
 
-        $builder = $formMapper->getFormBuilder()->getFormFactory()->createBuilder(UtilisateurType::class);
+        //$builder = $formMapper->getFormBuilder()->getFormFactory()->createBuilder(UtilisateurType::class);
 
         $formMapper
         ->add('username', 'text', array('help' => 'Veuillez indiquer le nom de compte.'))
@@ -34,7 +34,7 @@ class UtilisateurAdmin extends AbstractAdmin
           'help' => 'Les caméras associés à l\'utilisateur.'
         ), array('admin_code' => 'admin.camera'))
 
-        ->add($builder->get('ipNdd'))
+        //->add($builder->get('ipNdd'))
 
         /*->add('ipNdd', 'sonata_type_model', array(
           'required' => false,
