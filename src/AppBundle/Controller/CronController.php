@@ -83,6 +83,10 @@ class CronController extends Controller
 
     foreach ($cameras as $camera) {
 
+    if(empty($camera->getEmail()) && empty($camera->getEmailPassword())){
+      continue;
+    }
+
     // connexion au serveur
     $inbox = imap_open(
       '{'.$this->getParameter('mailer_inbox_host').':'.$this->getParameter('mailer_inbox_port').'/imap/ssl}INBOX',
@@ -90,7 +94,7 @@ class CronController extends Controller
       $camera->getEmailPassword(),
       NULL,
       1
-    ) or die('Impossible de se connecter au serveur mail : ' . print_r(imap_errors()));
+    ) ;//or die('Impossible de se connecter au serveur mail : ' . print_r(imap_errors()));
 
        /* ALL - return all messages matching the rest of the criteria
         ANSWERED - match messages with the \\ANSWERED flag set
