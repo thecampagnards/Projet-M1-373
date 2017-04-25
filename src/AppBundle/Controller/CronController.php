@@ -11,9 +11,10 @@ use AppBundle\Entity\Media;
 
 class CronController extends Controller
 {
+
   /**
-   * @Route("/cron/file", name="cron_file")
-   */
+  * @Route("/cron/file", name="cron_file")
+  */
   public function fileAction(Request $request)
   {
     $em = $this->getDoctrine()->getManager();
@@ -73,30 +74,29 @@ class CronController extends Controller
   }
 
   /**
-   * @Route("/cron/mail", name="cron_mail")
-   */
+  * @Route("/cron/mail", name="cron_mail")
+  */
   public function mailAction(Request $request){
 
     echo '--------<br/>';
-
     $cameras = $this->getDoctrine()->getRepository('AppBundle:Camera')->findAll();
-
     foreach ($cameras as $camera) {
 
-    if(empty($camera->getEmail()) && empty($camera->getEmailPassword())){
-      continue;
-    }
+      if(empty($camera->getEmail()) && empty($camera->getEmailPassword())){
+        continue;
+      }
 
-    // connexion au serveur
-    $inbox = imap_open(
-      '{'.$this->getParameter('mailer_inbox_host').':'.$this->getParameter('mailer_inbox_port').'/imap/ssl}INBOX',
-      $camera->getEmail(),
-      $camera->getEmailPassword(),
-      NULL,
-      1
-    ) ;//or die('Impossible de se connecter au serveur mail : ' . print_r(imap_errors()));
+      try {
+        // connexion au serveur
+        $inbox = imap_open(
+          '{'.$this->getParameter('mailer_inbox_host').':'.$this->getParameter('mailer_inbox_port').'/imap/ssl}INBOX',
+          $camera->getEmail(),
+          $camera->getEmailPassword(),
+          NULL,
+          1
+        );
 
-       /* ALL - return all messages matching the rest of the criteria
+        /* ALL - return all messages matching the rest of the criteria
         ANSWERED - match messages with the \\ANSWERED flag set
         BCC "string" - match messages with "string" in the Bcc: field
         BEFORE "date" - match messages with Date: before "date"
@@ -121,74 +121,75 @@ class CronController extends Controller
         UNKEYWORD "string" - match messages that do not have the keyword "string"
         UNSEEN - match messages which have not been read yet*/
 
-    // récupération des mails non lus
-    $emails = imap_search($inbox,'UNSEEN');
+        // récupération des mails non lus
+        $emails = imap_search($inbox,'UNSEEN');
 
-    if($emails){
-      // on parcours les mails
-      foreach($emails as $mail) {
+        if($emails){
+          // on parcours les mails
+          foreach($emails as $mail) {
 
-          // récupération des informations en entete du mail
-          $headerInfo = imap_headerinfo($inbox,$mail);
+            // récupération des informations en entete du mail
+            //$headerInfo = imap_headerinfo($inbox,$mail);
 
-          // récupération de la structure du mail
-          $structure = imap_fetchstructure($inbox,$mail);
+            // récupération de la structure du mail
+            $structure = imap_fetchstructure($inbox,$mail);
 
-          $attachments = array();
-          if(isset($structure->parts) && count($structure->parts)) {
+            $attachments = array();
+            if(isset($structure->parts) && count($structure->parts)) {
 
-            for($i = 0; $i < count($structure->parts); $i++) {
+              for($i = 0; $i < count($structure->parts); $i++) {
 
-              // récupération des infos du fichier
-              $attachments[$i] = array(
-                'is_attachment' => false,
-                'filename' => '',
-                'name' => '',
-                'attachment' => ''
-              );
+                // récupération des infos du fichier
+                $attachments[$i] = array(
+                  'is_attachment' => false,
+                  'filename' => '',
+                  'name' => '',
+                  'attachment' => ''
+                );
 
-              if($structure->parts[$i]->ifdparameters) {
-                foreach($structure->parts[$i]->dparameters as $object) {
-                  if(strtolower($object->attribute) == 'filename') {
-                    $attachments[$i]['is_attachment'] = true;
-                    $attachments[$i]['filename'] = $object->value;
+                if($structure->parts[$i]->ifdparameters) {
+                  foreach($structure->parts[$i]->dparameters as $object) {
+                    if(strtolower($object->attribute) == 'filename') {
+                      $attachments[$i]['is_attachment'] = true;
+                      $attachments[$i]['filename'] = $object->value;
+                    }
                   }
                 }
-              }
 
-              if($structure->parts[$i]->ifparameters) {
-                foreach($structure->parts[$i]->parameters as $object) {
-                  if(strtolower($object->attribute) == 'name') {
-                    $attachments[$i]['is_attachment'] = true;
-                    $attachments[$i]['name'] = $object->value;
+                if($structure->parts[$i]->ifparameters) {
+                  foreach($structure->parts[$i]->parameters as $object) {
+                    if(strtolower($object->attribute) == 'name') {
+                      $attachments[$i]['is_attachment'] = true;
+                      $attachments[$i]['name'] = $object->value;
+                    }
                   }
                 }
-              }
 
-              // récupération du fichier
-              if($attachments[$i]['is_attachment']) {
-                $attachments[$i]['attachment'] = imap_fetchbody($inbox, $mail, $i+1);
-                if($structure->parts[$i]->encoding == 3) { // 3 = BASE64
-                  $attachments[$i]['attachment'] = base64_decode($attachments[$i]['attachment']);
-                  file_put_contents($this->get('kernel')->getRootDir() . '/../web/uploads/camera/'. $camera->getId() .'/'. ($camera->getEtat() ? 'public' : 'prive') .'/' . $attachments[$i]['name'], $attachments[$i]['attachment']);
-                  echo $attachments[$i]['name'] . ' ajouté !<br/>';
-                }
-                elseif($structure->parts[$i]->encoding == 4) { // 4 = QUOTED-PRINTABLE
-                  $attachments[$i]['attachment'] = quoted_printable_decode($attachments[$i]['attachment']);
+                // récupération du fichier
+                if($attachments[$i]['is_attachment']) {
+                  $attachments[$i]['attachment'] = imap_fetchbody($inbox, $mail, $i+1);
+                  if($structure->parts[$i]->encoding == 3) { // 3 = BASE64
+                    $attachments[$i]['attachment'] = base64_decode($attachments[$i]['attachment']);
+                    file_put_contents($this->get('kernel')->getRootDir() . '/../web/uploads/camera/'. $camera->getId() .'/'. ($camera->getEtat() ? 'public' : 'prive') .'/' . $attachments[$i]['name'], $attachments[$i]['attachment']);
+                    echo $attachments[$i]['name'] . ' ajouté !<br/>';
+                  }
+                  elseif($structure->parts[$i]->encoding == 4) { // 4 = QUOTED-PRINTABLE
+                    $attachments[$i]['attachment'] = quoted_printable_decode($attachments[$i]['attachment']);
+                  }
                 }
               }
             }
           }
+        }
+        // fermeture de la connexion au serveur mail
+        imap_expunge($inbox);
+        imap_close($inbox);
+      } catch (\Exception $e) {
+        continue;
       }
     }
-  }
-
-    // fermeture de la connexion au serveur mail
-    imap_expunge($inbox);
-    imap_close($inbox);
 
     echo '--------<br/>';
-
     $response = new Response();
     $response->setStatusCode(Response::HTTP_OK);
     return $response;
