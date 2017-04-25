@@ -10,3 +10,10 @@ Lancer le script d'installation dans le dossier voulu.
 ```bash
 $ ./install.sh motdepassesql monnomdedomaine.fr
 ```
+
+## Mailbox
+
+### Gmail
+
+Désactiver les sécurités : https://myaccount.google.com/lesssecureapps
+Activer l'imap : https://mail.google.com/mail/u/0/#settings/fwdandpop

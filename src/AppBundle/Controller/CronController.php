@@ -51,7 +51,7 @@ class CronController extends Controller
 
           // on creer le media
           $media = new Media();
-          $media->setNom($file);
+          $media->setNom(pathinfo($filename, PATHINFO_FILENAME));
           $media->setMedia($file);
           $media->setCamera($camera);
           $media->setEtat(($etat === 'public' ? true : false));
