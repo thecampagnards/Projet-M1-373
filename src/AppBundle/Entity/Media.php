@@ -44,7 +44,7 @@ class Media extends BaseFile
     private $etat;
 
     /**
-     *  @ORM\OneToMany(targetEntity="Vote", mappedBy="media")
+     *  @ORM\OneToMany(targetEntity="Vote", mappedBy="media", cascade={"persist", "remove"}, orphanRemoval=true)
      */
     private $votes;
 

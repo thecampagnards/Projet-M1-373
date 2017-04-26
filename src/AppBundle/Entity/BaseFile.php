@@ -81,7 +81,8 @@ class BaseFile
   */
   public function removeFile()
   {
-    if ($file = $this->getAbsolutePath() && file_exists($this->getAbsolutePath())) {
+    $file = $this->getAbsolutePath();
+    if (file_exists($file)) {
       unlink($file);
     }
   }
