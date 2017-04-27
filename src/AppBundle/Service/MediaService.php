@@ -7,6 +7,7 @@ use Symfony\Bridge\Doctrine\RegistryInterface as Registry;
 use Symfony\Component\HttpFoundation\Session\Session;
 
 use AppBundle\Entity\Media;
+use AppBundle\Entity\Vote;
 
 class MediaService
 {
@@ -40,6 +41,19 @@ class MediaService
   public function check(Media $media)
   {
     return $this->checkUtilisateur($media) ?? $this->checkSession($media);
+  }
+
+  public function random(){
+    $medias = $this->doctrine->getRepository('AppBundle:Media')->findBy(array('etat' => true));
+    $random = random_int(0, count($medias));
+    $vote = new Vote();
+    $vote->setMedia($medias[$random]);
+
+    $em = $this->doctrine->getManager();
+    $em->persist($vote);
+    $em->flush();
+
+    return $medias[$random];
   }
 
 }

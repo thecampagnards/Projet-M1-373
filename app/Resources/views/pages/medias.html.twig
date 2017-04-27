@@ -12,6 +12,7 @@
 
 {% block body %}
 
+
   <h1>
     {% if app.request.get('_route') == 'medias_populaires' %}
       Médias populaires
@@ -39,10 +40,17 @@
         &nbsp;&nbsp;<a class="btn button dark tippy" title="Cliquez pour copier le lien" data-clipboard-text="<iframe src='{{ url(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) }}' height='400px' width='600px'></iframe>">Partager par iframe</a>
     </i><br><br>
 
-{% if pagination.getTotalItemCount is empty %}
-  Il n'y a pas de médias.
+{% if pagination.getTotalItemCount == 0 %}
+  {% set media = media_service.random() %}
+  <ul class="medias">
+    <li class="media">
+      {% include 'components/block/media.html.twig' with {'media': media, 'popup': false} %}
+      {% include 'components/block/vote.count.html.twig' with {'media': media} %}
+      {% include 'components/block/vote.button.html.twig' with {'media': media} %}
+    </li>
+  </ul>
 {% else %}
-<ul class="medias">
+  <ul class="medias">
   {% for media in pagination %}
     <li class="media">
       {% include 'components/block/media.html.twig' with {'media': media, 'popup': false} %}
@@ -55,7 +63,6 @@
       {{ knp_pagination_render(pagination) }}
   </div>
 {% endif %}
-
 {% endblock %}
 
 {% block javascripts %}
