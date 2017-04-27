@@ -24,28 +24,56 @@ class MediaController extends Controller
     /**
      * @Route("/populaires", name="medias_populaires")
      */
-    public function populairesAction()
+    public function populairesAction(Request $request)
     {
-        $medias = $this->getDoctrine()
+
+        $query = $this->getDoctrine()
                 ->getManager()
                 ->getRepository('AppBundle:Media')->orderByVotes();
-        return $this->render('pages/medias.html.twig', array('medias' => $medias));
+
+        $paginator  = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+          $query,
+          $request->query->getInt('page', 1),
+          20
+        );
+        return $this->render('pages/medias.html.twig', array('pagination' => $pagination));
     }
 
     /**
      * @Route("/recents", name="medias_recents")
      */
-    public function recentsAction()
+    public function recentsAction(Request $request)
     {
-        $medias = $this->getDoctrine()->getRepository('AppBundle:Media')->findBy(array(), array('created' => 'DESC')); //date
-        return $this->render('pages/medias.html.twig', array('medias' => $medias));
+        $query = $this->get('doctrine.orm.entity_manager')->createQuery('SELECT a FROM AppBundle:Media a ORDER BY a.created DESC');
+
+        $paginator  = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+          $query,
+          $request->query->getInt('page', 1),
+          20
+        );
+        return $this->render('pages/medias.html.twig', array('pagination' => $pagination));
     }
 
     /**
      * @Route("/photos/{periode}", name="medias_photo_periode")
      */
-    public function jourAction($periode)
+    public function jourAction(Request $request, $periode)
     {
+
+        $query = $this->getDoctrine()
+                ->getManager()
+                ->getRepository('AppBundle:Media')->orderByJour($periode);
+
+        $paginator  = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+          $query,
+          $request->query->getInt('page', 1),
+          20
+        );
+        return $this->render('pages/medias.html.twig', array('pagination' => $pagination));
+
         $medias = $this->getDoctrine()
                 ->getManager()
                 ->getRepository('AppBundle:Media')->orderByJour($periode);

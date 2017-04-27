@@ -26,6 +26,10 @@
 
   {% endif %}
 
+  {% if app.user and camera in app.user.cameras %}
+    <a href="http://{{ camera.ip }}" target="_blank">Piloter la caméra</a>
+  {% endif %}
+
   <h1>Médias associés</h1>
   <ul class="medias">
     {%  for media in camera.medias %}
