@@ -51,7 +51,7 @@ class MediaController extends Controller
         $pagination = $paginator->paginate(
           $query,
           $request->query->getInt('page', 1),
-          20
+          3
         );
         return $this->render('pages/medias.html.twig', array('pagination' => $pagination));
     }
