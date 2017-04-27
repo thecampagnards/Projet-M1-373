@@ -23,7 +23,7 @@ class MediaRepository extends \Doctrine\ORM\EntityRepository
           ->innerJoin('u.votes', 'v')
           ->groupBy('u.id')
           ->orderBy('countVotes', $order);
-      return $qb->getQuery()->getResult();
+      return $qb->getQuery();
     }
 
     /**
@@ -67,7 +67,7 @@ class MediaRepository extends \Doctrine\ORM\EntityRepository
             ->orderBy('countVotes', $order)
             ->setParameter('from', $from)
             ->setParameter('to', $to);
-        return $qb->getQuery()->getResult();
+        return $qb->getQuery();
       }
 
 }

@@ -35,19 +35,22 @@
         </a>
     </i><br><br>
 
-    {% if medias is empty %}
-        Il n'y a pas de médias.
-    {% else %}
-        <ul class="medias">
-            {% for media in medias %}
-              <li class="media">
-                {% include 'components/block/media.html.twig' with {'media': media, 'popup': false} %}
-                {% include 'components/block/vote.count.html.twig' with {'media': media} %}
-                {% include 'components/block/vote.button.html.twig' with {'media': media} %}
-              </li>
-            {% endfor %}
-        </ul>
-    {% endif %}
+{% if pagination.getTotalItemCount is empty %}
+  Il n'y a pas de médias.
+{% else %}
+<ul class="medias">
+  {% for media in pagination %}
+    <li class="media">
+      {% include 'components/block/media.html.twig' with {'media': media, 'popup': false} %}
+      {% include 'components/block/vote.count.html.twig' with {'media': media} %}
+      {% include 'components/block/vote.button.html.twig' with {'media': media} %}
+    </li>
+  {% endfor %}
+  </ul>
+  <div class="navigation">
+      {{ knp_pagination_render(pagination) }}
+  </div>
+{% endif %}
 
 {% endblock %}
 
