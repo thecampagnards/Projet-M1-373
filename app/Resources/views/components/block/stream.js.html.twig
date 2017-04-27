@@ -24,4 +24,18 @@
        })
     }
   })
+
+  var play = $('#stream-flux').attr('data-play')
+  $('#stream-control').click(function(e){
+    e.preventDefault()
+    if(play){
+      $(this).text('Play')
+      $('#stream-flux').attr('src', $(this).attr('data-pause'))
+    }else{
+      $(this).text('Stop')
+      $('#stream-flux').attr('src', $(this).attr('data-play'))
+    }
+    play = !play
+  })
+
 </script>

@@ -18,7 +18,9 @@
 
   {% if stream_service.streamOnline('http://' ~ camera.ip ~ '/mjpg/video.mjpg') %}
     <h1>Streaming en direct <div class="viewer tippy" title="Nombre de personnes à regarder le direct"><i class="fa fa-eye"></i> <span id="nb-viewer">{{ camera.viewer }}</span></div></h1>
-    <div class="streaming"><img src="http://{{ camera.ip }}/mjpg/video.mjpg" id="stream-flux" data-camera="{{ camera.id }}"/></div>
+    <div class="streaming"><img src="http://{{ camera.ip }}/mjpg/video.mjpg" id="stream-flux" data-camera="{{ camera.id }}" data-play="true"/></div>
+    <a href="http://{{ camera.ip }}/jpg/1/image.jpg" download="Screenshot.png" target="_blank">Capture du stream</a>
+    <a id="stream-control" class="btn button dark" href="#" data-pause="http://{{ camera.ip }}/jpg/1/image.jpg" data-play="http://{{ camera.ip }}/mjpg/video.mjpg">Stop</a>
   {% endif %}
 
   <h1>Médias associés</h1>
