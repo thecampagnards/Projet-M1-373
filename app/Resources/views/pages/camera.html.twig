@@ -20,14 +20,12 @@
     <h1>Streaming en direct <div class="viewer tippy" title="Nombre de personnes à regarder le direct"><i class="fa fa-eye"></i> <span id="nb-viewer">{{ camera.viewer }}</span></div></h1>
     <div class="streaming"><img src="http://{{ camera.ip }}/mjpg/video.mjpg" id="stream-flux" data-camera="{{ camera.id }}" data-play="true"/></div>
     <div class="command">
-      <a id="stream-control" class="btn button dark" href="#" data-pause="http://{{ camera.ip }}/jpg/1/image.jpg" data-play="http://{{ camera.ip }}/mjpg/video.mjpg"><i class="fa fa-pause tippy" title="Mettre le direct en pause"></i></a>
+      <a id="stream-control" class="btn button dark" href="#" data-pause="http://{{ camera.ip }}/jpg/1/image.jpg" data-play="http://{{ camera.ip }}/mjpg/video.mjpg"><i class="fa fa-pause tippy" title="Mettre le direct en pause"></i><i class="fa fa-play tippy hide" title="Relancer le direct"></i></a>
       <a href="http://{{ camera.ip }}/jpg/1/image.jpg" class="btn button dark" download="Screenshot.png" target="_blank"><i class="fa fa-camera tippy" title="Faire une capture du direct"></i></a>
+      {% if app.user and camera in app.user.cameras %}
+        <a href="http://{{ camera.ip }}" target="_blank" class="btn button dark"><i class="fa fa-cog tippy" title="Accéder à l'interface de commande de la caméra"></i></a>
+      {% endif %}
     </div>
-
-  {% endif %}
-
-  {% if app.user and camera in app.user.cameras %}
-    <a href="http://{{ camera.ip }}" target="_blank">Piloter la caméra</a>
   {% endif %}
 
   <h1>Médias associés</h1>

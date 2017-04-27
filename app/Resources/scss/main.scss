@@ -130,7 +130,13 @@ ul.medias {
   width: 100%;
   text-align: center;
   margin: 5px;
+
+  .fa.hide {
+    display: none;
+  }
 }
+
+
 
 .viewer {
   float: right;
