@@ -19,7 +19,7 @@
   </nav>
 
   <header>
-    Projet réalisé dans le cadre de notre quatrième année à l'école d'ingénieurs <a href="http://isen-brest.fr/">ISEN Brest</a>.
+    Bienvenue sur {{ nomdusite }}, l'interface de diffusion de médias prises par des caméras disposés sur des sites naturels. Ce projet a été réalisé dans le cadre d'un projet de quatrième année à l'école d'ingénieurs <a href="http://isen-brest.fr/">ISEN Brest</a>.
   </header>
 
   <section class="links">
@@ -48,67 +48,67 @@
     </ul>
   </section>
 
-
-
-  <section id="camera">
-    {% set break = false %}
-    {% for camera in cameras if not break %}
+  {% if cameras is not empty %}
+    <section id="camera">
+      {% set break = false %}
+      {% for camera in cameras if not break %}
         {% set stream_on = stream_service.streamOnline('http://' ~ camera.ip ~ '/mjpg/video.mjpg') %}
-      {% if stream_on or camera == cameras[cameras|length - 1] %}
-        <div class="visu">
-            {% if stream_on %}
-              <img src="http://{{ camera.ip }}/mjpg/video.mjpg" id="stream-flux" data-camera="{{ camera.id }}" />
-            {%  else %}
-              <img src="{{ asset(camera.getWebPath) }}" alt="{{ camera.nom }}" class="offline">
-            {% endif %}
-
-        </div>
-
-        <div class="description">
-          <h2>{{ camera.nom }}
-            <span class="etat">
+        {% if stream_on or camera == cameras[cameras|length - 1] %}
+          <div class="visu">
               {% if stream_on %}
-                <i class="fa fa-circle stream-on"></i> On
+                <img src="http://{{ camera.ip }}/mjpg/video.mjpg" id="stream-flux" data-camera="{{ camera.id }}" />
               {%  else %}
-                <i class="fa fa-circle"></i> Off
+                <img src="{{ asset(camera.getWebPath) }}" alt="{{ camera.nom }}" class="offline">
               {% endif %}
-            </span>
-            {% if stream_on %} <div class="viewer"><i class="fa fa-eye"></i> <span id="nb-viewer">{{ camera.viewer }}</span></div> {% endif %}
-          </h2>
-          <p>{{ camera.description }}</p>
-          <a href="{{ url('camera', {'id': camera.id}) }}" class="button"> Accéder à la caméra</a>
-        </div>
 
-        <style>
-          #camera {
-            height: 460px;
-            display: block;
-            position: relative;
-          }
-          #camera::after {
-            content: "";
-            background-image: url('{{ asset(camera.getWebPath) }}');
-            background-size: cover;
-            background-position: center;
-            background-color:rgba(0, 0, 0, 0.8);
-            opacity: 0.5;
-            top: 0;
-            left: 0;
-            bottom: 0;
-            right: 0;
-            position: absolute;
-            z-index: -1;
-          }
-        </style>
-        {% set break = true %}
-      {% endif %}
-    {% endfor %}
-  </section>
+          </div>
+
+          <div class="description">
+            <h2>{{ camera.nom }}
+              <span class="etat">
+                {% if stream_on %}
+                  <i class="fa fa-circle stream-on"></i> On
+                {%  else %}
+                  <i class="fa fa-circle"></i> Off
+                {% endif %}
+              </span>
+              {% if stream_on %} <div class="viewer"><i class="fa fa-eye"></i> <span id="nb-viewer">{{ camera.viewer }}</span></div> {% endif %}
+            </h2>
+            <p>{{ camera.description }}</p>
+            <a href="{{ url('camera', {'id': camera.id}) }}" class="button"> Accéder à la caméra</a>
+          </div>
+
+          <style>
+            #camera {
+              height: 460px;
+              display: block;
+              position: relative;
+            }
+            #camera::after {
+              content: "";
+              background-image: url('{{ asset(camera.getWebPath) }}');
+              background-size: cover;
+              background-position: center;
+              background-color:rgba(0, 0, 0, 0.8);
+              opacity: 0.5;
+              top: 0;
+              left: 0;
+              bottom: 0;
+              right: 0;
+              position: absolute;
+              z-index: -1;
+            }
+          </style>
+          {% set break = true %}
+        {% endif %}
+      {% endfor %}
+    </section>
+  {% endif %}
 
   <section id="populaires">
     <h2>Médias récents</h2>
     <ul>
-      {% for media in medias|slice(0, 4) %}
+      {% for media in medias|slice(0, 8) %}
         <li>
         {% if media.isImage %}
           <a href="{{ url('media', {'id': media.id}) }}">
@@ -133,13 +133,17 @@
     </ul>
   </section>
 
+  <section id="astuces">
+    <div><i class="fa fa-star"></i><div><h2>N'hésitez pas à utiliser le système de vote !</h2><p>C'est simple, une fois sur le site, il vous suffit de cliquer sur les étoiles (<i class="fa fa-star-o"></i>) pour voter pour un ou plusieurs médias !<br>Et de cliquer sur (<i class="fa fa-star"></i>) pour annuler le vote.</p></div></div>
+  </section>
+
   <section id="partenaires">
     <h1>Partenaires</h1>
     <ul>
-      <li><a href="http://www.isen.fr/"><img src="{{ asset('img/partenaire1.png') }}" alt="ISEN Yncréa"></a></li>
-      <li><a href="http://www.seatestbase.com/"><img src="{{ asset('img/partenaire2.png') }}" alt="Sea Test Base"></a></li>
-      <li><a href="http://www.oceanopolis.com/"><img src="{{ asset('img/partenaire3.png') }}" alt="Océanopolis Brest"></a></li>
-      <li><a href="http://www.parc-marin-iroise.fr/"><img src="{{ asset('img/partenaire4.png') }}" alt="Parc naturel marin d'Iroise"></a></li>
+      <li><a href="http://www.isen.fr/"><img src="{{ asset('img/partenaire_1.png') }}" alt="ISEN Yncréa"></a></li>
+      <li><a href="http://www.seatestbase.com/"><img src="{{ asset('img/partenaire_2.png') }}" alt="Sea Test Base"></a></li>
+      <li><a href="http://www.oceanopolis.com/"><img src="{{ asset('img/partenaire_3.png') }}" alt="Océanopolis Brest"></a></li>
+      <li><a href="http://www.parc-marin-iroise.fr/"><img src="{{ asset('img/partenaire_4.png') }}" alt="Parc naturel marin d'Iroise"></a></li>
     </ul>
   </section>
 

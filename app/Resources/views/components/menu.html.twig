@@ -16,8 +16,8 @@
       <a href="{{ url('medias_recents') }}"><i class="fa fa-clock-o"></i>Médias récents</a>
     </div>
 
-    <div class="link-red{% if app.request.attributes.get('_route') == 'medias_photo_jour' %} selected{% endif %}">
-      <a href="{{ url('medias_photo_jour') }}"><i class="fa fa-picture-o"></i>Photos du jour</a>
+    <div class="link-red{% if app.request.attributes.get('_route') == 'medias_photo_periode' %} selected{% endif %}">
+      <a href="{{ url('medias_photo_periode', {periode: 'de-la-semaine'}) }}"><i class="fa fa-picture-o"></i>Photos de la semaine</a>
     </div>
 
     <div class="link-blue{% if app.request.attributes.get('_route') == 'contact' %} selected{% endif %}">

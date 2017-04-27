@@ -1,6 +1,7 @@
 @import "_variables.scss";
 @import "_grid.scss";
 @import "_menu.scss";
+@import "tippy.scss";
 @import "_font-awesome.scss";
 @import "_magnific-popup.scss";
 
@@ -38,6 +39,18 @@ ul.cameras {
     display: inline-block;
     padding: 15px;
 
+    i.fa-circle {
+      float: right;
+
+      &.stream-on {
+        color: $red-color;
+      }
+    }
+
+    i.fa-lock {
+      float: right;
+    }
+
     img {
       width: 100%;
     }
@@ -45,6 +58,7 @@ ul.cameras {
     h2 {
       margin: 0;
       font-size: 1.2em;
+      display: inline-block;
     }
 
     a {

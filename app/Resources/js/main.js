@@ -1,8 +1,7 @@
 
 var clipboard = new Clipboard('.btn')
 
-clipboard.on('success', function (e) {
-  console.log(e)
+clipboard.on('success', function (e) {  
   e.trigger.text = 'Copié !'
 })
 
@@ -11,3 +10,5 @@ clipboard.on('error', function (e) {
 })
 
 $('.popup-image-link').magnificPopup({type:'image'})
+
+new Tippy('.tippy')

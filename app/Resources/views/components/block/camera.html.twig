@@ -2,4 +2,11 @@
 <a href="{{ url('camera', {'id': camera.id}) }}">
   <img src="{{ asset(camera.getWebPath) }}" alt="{{ camera.nom }}">
   <h2>{{ camera.nom }}</h2>
+  {% if not camera.etat %}
+    <i class="fa fa-lock tippy" title="Cette caméra est privée, le grand public n'y a pas accès."></i>
+  {% endif %}
+  {% if stream_service.streamOnline('http://' ~ camera.ip ~ '/mjpg/video.mjpg') %}
+    <i class="fa fa-circle stream-on tippy" title="Direct on"></i>
+  {% endif %}
+
 </a>

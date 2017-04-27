@@ -42,13 +42,13 @@ class MediaController extends Controller
     }
 
     /**
-     * @Route("/photos-du-jour", name="medias_photo_jour")
+     * @Route("/photos/{periode}", name="medias_photo_periode")
      */
-    public function jourAction()
+    public function jourAction($periode)
     {
         $medias = $this->getDoctrine()
                 ->getManager()
-                ->getRepository('AppBundle:Media')->orderByJour();
+                ->getRepository('AppBundle:Media')->orderByJour($periode);
         return $this->render('pages/medias.html.twig', array('medias' => $medias));
     }
 
