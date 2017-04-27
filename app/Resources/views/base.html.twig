@@ -4,11 +4,12 @@
     <meta charset="UTF-8" />
     <title>{% block title %}{{ nomdusite }}{% endblock %}</title>
     <link rel="stylesheet" href="{{ asset('css/main.css') }}" />
+    {% if false or iframe_service.isIframe() %} <link rel="stylesheet" href="{{ asset('css/iframe.css') }}" /> {% endif %}
     {% block stylesheets %}{% endblock %}
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
   </head>
   <body>
-    {% if app.request.get('_route') != 'homepage' and not iframe_service.isIframe() %}
+    {% if app.request.get('_route') != 'homepage' %}
       {% include 'components/menu.html.twig' %}
       <div id="content">
     {% endif %}

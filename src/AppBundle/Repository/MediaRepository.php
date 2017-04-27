@@ -28,13 +28,35 @@ class MediaRepository extends \Doctrine\ORM\EntityRepository
 
     /**
      * @param string $order
+     * @param string $type -> 0 jour / 1 semaine / 2 mois
      *
      * @return result
      */
-      public function orderByJour($order = 'DESC')
+      public function orderByJour($type = 'de-la-semaine', $order = 'DESC')
       {
-        $from = new \DateTime("now 00:00:00");
-        $to = new \DateTime("now 23:59:59");
+          switch ($type) {
+              case 'du-jour' :
+                  $from = new \DateTime("now 00:00:00");
+                  $to = new \DateTime("now 23:59:59");
+                  break;
+
+              case 'de-la-semaine' :
+                  $from = new \DateTime("now 00:00:00");
+                  $from->sub(new \DateInterval('P1W'));
+                  $to = new \DateTime("now 23:59:59");
+                  break;
+
+              case 'du-mois' :
+                  $from = new \DateTime("now 00:00:00");
+                  $from->sub(new \DateInterval('P1M'));
+                  $to = new \DateTime("now 23:59:59");
+                  break;
+
+              default:
+                  $from = new \DateTime("now 00:00:00");
+                  $from->sub(new \DateInterval('P1W'));
+                  $to = new \DateTime("now 23:59:59");
+          }
 
         $qb = $this->_em->createQueryBuilder();
         $qb->select('u, COUNT(v.id) AS HIDDEN countVotes')
@@ -47,4 +69,5 @@ class MediaRepository extends \Doctrine\ORM\EntityRepository
             ->setParameter('to', $to);
         return $qb->getQuery()->getResult();
       }
+
 }

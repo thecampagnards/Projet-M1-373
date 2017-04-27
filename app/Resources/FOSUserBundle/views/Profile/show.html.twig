@@ -10,10 +10,16 @@
 <div class="fos_user_user_show">
 
     <h1>Bienvenue <b>{{ user.username }}</b> </h1>
-    <a href="{{ url('fos_user_profile_edit') }}" class="button dark"><i class="fa fa-pencil"></i> Éditer</a><br><br>
+    <a href="{{ url('fos_user_profile_edit') }}" class="button dark"><i class="fa fa-pencil"></i> Éditer</a>
+
+    {% if is_granted('ROLE_ADMIN') %}
+        <a href="{{ url('cron_mail') }}" class="btn button dark" target="_blank">Forcer la récupération des mails</a>&nbsp;<a href="{{ url('cron_file') }}" class="btn button dark" target="_blank">Forcer la l'ajout des médias en base</a>
+    {% endif %}
+
+    <br><br>
 
     <p>Type de compte :
-        {% if user.hasRole('ROLE_ADMIN') or user.hasRole('ROLE_SUPER_ADMIN') %}
+        {% if is_granted('ROLE_ADMIN') %}
             Administrateur
         {%  elseif user.cameras.length != 0 %}
             Professionnel
@@ -24,11 +30,13 @@
 
     <p>{{ 'profile.show.email'|trans }} : {{ user.email }}</p>
 
-    <br>
-    <h1>Historique des votes</h1>
 
+
+    <br>
+    <h1>Historique de mes votes</h1>
+    <p>Affichage des 15 derniers votes au maximum.</p>
     <ul class="medias">
-        {% for vote in user.votes %}
+        {% for vote in user.votes | slice(0, 14) %}
             <li class="media">
                 {% include 'components/block/media.html.twig' with {'media': vote.media, 'popup': false} %}
                 {% include 'components/block/vote.count.html.twig' with {'media': vote.media} %}

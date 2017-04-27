@@ -39,7 +39,7 @@ header {
   text-align: center;
   width: 100%;
   background-color: $blue-color;
-  padding: 20px;
+  padding: 20px 15%;
   color: #ffffff;
   margin-top: 25px;
   box-sizing: border-box;
@@ -142,15 +142,7 @@ section {
   }
 
   &#partenaires {
-    background-color: $blue-color;
-
-    h1 {
-      color: #fff;
-    }
-
-    a {
-      color: #fff;
-    }
+    background-color: #ffffff;
 
     ul {
       text-align: center;
@@ -170,6 +162,38 @@ section {
           opacity: 1;
         }
       }
+    }
+  }
+
+  &#astuces {
+    background-color: $yellow-color;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    > div {
+      display: flex;
+      align-items: center;
+      margin: 10px 0;
+
+      > i.fa-star {
+        font-size: 60px;
+        margin-right: 30px;
+      }
+
+      > div {
+        display: inline-block;
+      }
+    }
+
+    p {
+      margin: 0;
+    }
+
+    h2 {
+      margin: 0;
+      margin-bottom: 10px;
     }
   }
 
