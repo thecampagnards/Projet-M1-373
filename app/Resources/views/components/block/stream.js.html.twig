@@ -29,13 +29,14 @@
   $('#stream-control').click(function(e){
     e.preventDefault()
     if(play){
-      $(this).text('Play')
+      $(this).html('<i class="fa fa-play tippy" title="Relancer le direct"></i>')
       $('#stream-flux').attr('src', $(this).attr('data-pause'))
     }else{
-      $(this).text('Stop')
+      $(this).html('<i class="fa fa-pause tippy" title="Mettre le direct en pause"></i>')
       $('#stream-flux').attr('src', $(this).attr('data-play'))
     }
     play = !play
+    new Tippy('.tippy')
   })
 
 </script>
