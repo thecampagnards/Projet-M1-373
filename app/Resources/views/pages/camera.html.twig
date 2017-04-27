@@ -10,14 +10,14 @@
     </div>
     <div class="col-sm-8">
       <p>{{ camera.description }}</p>
-      <p><a class="btn button dark" data-clipboard-text="<iframe src='{{ url(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) }}' height='400px' width='600px'></iframe>">
-          Partager par iframe (clique pour copier le lien)
+      <p><a class="btn button dark tippy" title="Cliquez pour copier le lien" data-clipboard-text="<iframe src='{{ url(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) }}' height='400px' width='600px'></iframe>">
+          Partager par iframe
         </a></p>
     </div>
   </div>
 
   {% if stream_service.streamOnline('http://' ~ camera.ip ~ '/mjpg/video.mjpg') %}
-    <h1>Streaming en direct <div class="viewer" title="Nombre de personnes à regarder le direct"><i class="fa fa-eye"></i> <span id="nb-viewer">{{ camera.viewer }}</span></div></h1>
+    <h1>Streaming en direct <div class="viewer tippy" title="Nombre de personnes à regarder le direct"><i class="fa fa-eye"></i> <span id="nb-viewer">{{ camera.viewer }}</span></div></h1>
     <div class="streaming"><img src="http://{{ camera.ip }}/mjpg/video.mjpg" id="stream-flux" data-camera="{{ camera.id }}"/></div>
   {% endif %}
 

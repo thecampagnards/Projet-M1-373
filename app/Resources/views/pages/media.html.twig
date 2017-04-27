@@ -15,7 +15,7 @@
   <br>
   <div class="media-links"><a href="{{ asset(media.getWebPath) }}" class="btn button dark" downloads><i class="fa fa-download"></i> Télécharger le média</a>&nbsp;
     <a href="{{ path('camera', { id:media.camera.id}) }}" class="button dark">Voir la caméra associée</a>&nbsp;
-    <a class="btn button dark" data-clipboard-text="<iframe src='{{ url(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) }}' height='400px' width='600px'></iframe>">Partager par iframe (clique pour copier le lien)</a>
+    <a class="btn button dark tippy" itle="Cliquez pour copier le lien" data-clipboard-text="<iframe src='{{ url(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) }}' height='400px' width='600px'></iframe>">Partager par iframe</a>
   </div>
 
 {% endblock %}

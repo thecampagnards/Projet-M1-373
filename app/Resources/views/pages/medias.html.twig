@@ -30,8 +30,8 @@
         {% elseif app.request.get('_route') == 'medias_photo_periode'%}
             Photos les plus votées {{ app.request.get('periode') | replace({'-': ' '}) }}. <a href="{{ url('medias_photo_periode', {periode: 'du-jour'}) }}">Voir les photos du jour</a> <a href="{{ url('medias_photo_periode', {periode: 'de-la-semaine'}) }}">Voir les photos de la semaine</a> <a href="{{ url('medias_photo_periode', {periode: 'du-mois'}) }}">Voir les photos du mois</a>
         {% endif %}
-        &nbsp;&nbsp;<a class="btn button dark" data-clipboard-text="<iframe src='{{ url(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) }}' height='400px' width='600px'></iframe>">
-            Partager par iframe (clique pour copier le lien)
+        &nbsp;&nbsp;<a class="btn button dark tippy" title="Cliquez pour copier le lien" data-clipboard-text="<iframe src='{{ url(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) }}' height='400px' width='600px'></iframe>">
+            Partager par iframe
         </a>
     </i><br><br>
 
