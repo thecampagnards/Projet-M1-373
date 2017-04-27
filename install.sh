@@ -73,8 +73,8 @@ php bin/console doctrine:schema:update --force
 # installation tache cron
 crontab -l > mycron
 echo "00 00 * * * php $script_dir/bin/console app:camera-reset > /dev/null 2>&1" >> mycron
-echo "00 00 * * * wget --spider http://$nom_domaine/cron/mail > /dev/null 2>&1" >> mycron
-echo "00 00 * * * wget --spider http://$nom_domaine/cron/file > /dev/null 2>&1" >> mycron
+echo "*/5 * * * * wget --spider http://$nom_domaine/cron/mail > /dev/null 2>&1" >> mycron
+echo "*/5 * * * * wget --spider http://$nom_domaine/cron/file > /dev/null 2>&1" >> mycron
 crontab mycron
 rm mycron
 
