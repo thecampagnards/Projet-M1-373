@@ -123,7 +123,7 @@
             <a href="{{ url('media', {'id': media.id}) }}">Lien vers le media</a>
           </p>
         {% else %}
-          <a href="{{ asset(media.getWebPath) }}" downloads>{{ media.nom }}</a>
+          <a href="{{ asset(media.getWebPath) }}" download>{{ media.nom }}</a>
           <p>
             <a href="{{ url('media', {'id': media.id}) }}">Lien vers le media</a>
           </p>

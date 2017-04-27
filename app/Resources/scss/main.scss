@@ -246,3 +246,38 @@ a.button {
 input#btn-delete {
   background-color: $red-color;
 }
+
+.periode {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 40px;
+
+  a {
+    width: 300px;
+    display: inline-block;
+    text-align: center;
+    padding: 20px;
+    margin: 10px;
+    color: #ffffff;
+    text-decoration: none;
+
+    &:first-child {
+      background-color: $yellow-color;
+    }
+
+    &:nth-child(2) {
+      background-color: $red-color;
+    }
+
+    &:nth-child(3) {
+      background-color: $green-color;
+    }
+
+    b {
+      text-transform: uppercase;
+    }
+  }
+
+
+}

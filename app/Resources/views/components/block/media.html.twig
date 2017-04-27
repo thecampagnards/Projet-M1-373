@@ -19,6 +19,6 @@
         <a href="{{ url('media', {'id': media.id}) }}">Lien vers le media</a>
     {% endif %}
 {% else %}
-    <a href="{{ asset(media.getWebPath) }}" downloads>{{ media.nom }}</a>
+    <a href="{{ asset(media.getWebPath) }}" download>{{ media.nom }}</a>
     <a href="{{ url('media', {'id': media.id}) }}">Lien vers le media</a>
 {% endif %}
