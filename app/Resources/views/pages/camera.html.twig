@@ -30,7 +30,7 @@
 
   <h1>Médias associés</h1>
   <ul class="medias">
-    {%  for media in camera.medias %}
+    {%  for media in camera.medias | reverse %}
       <li class="media">
         {% include 'components/block/media.html.twig' with {'media': media} %}
         {% include 'components/block/vote.count.html.twig' with {'media': media} %}

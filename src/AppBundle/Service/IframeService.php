@@ -28,7 +28,7 @@ class IframeService
       $route = $this->router->match($lastPath);//['_route'];
       */
 
-      return $lastPath ? false : true; // à inverser pour valider la condition
+      return $lastPath ? false : false;
     } catch (\Exception $e) {
 
     }

@@ -13,7 +13,7 @@
       {% if app.user is empty %}
         <li><a href="{{ url('fos_user_security_login') }}">Connexion</a> | <a href="{{ path("fos_user_registration_register") }}" class="link">Créer un compte</a></li>
       {% else %}
-        <li><a href="{{ url('fos_user_profile_show') }}">Bienvenue <b>@{{ app.user.username }}</b></a></li>
+        <li><a href="{{ url('fos_user_profile_show') }}">Bienvenue <b class="tippy" title="Accéder à mon compte">@{{ app.user.username }}</b></a></li>
       {% endif %}
     </ul>
   </nav>
@@ -69,10 +69,10 @@
                 {% if stream_on %}
                   <i class="fa fa-circle stream-on"></i> On
                 {%  else %}
-                  <i class="fa fa-circle"></i> Off
+                  <i class="fa fa-circle tippy" title="Le direct n'est pas disponible actuelement"></i> Off
                 {% endif %}
               </span>
-              {% if stream_on %} <div class="viewer"><i class="fa fa-eye"></i> <span id="nb-viewer">{{ camera.viewer }}</span></div> {% endif %}
+              {% if stream_on %} <div class="viewer tippy" title="Nombre de personnes à regarder le direct"><i class="fa fa-eye"></i> <span id="nb-viewer">{{ camera.viewer }}</span></div> {% endif %}
             </h2>
             <p>{{ camera.description }}</p>
             <a href="{{ url('camera', {'id': camera.id}) }}" class="button"> Accéder à la caméra</a>
