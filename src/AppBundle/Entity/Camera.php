@@ -65,6 +65,20 @@ class Camera extends BaseFile
     private $emailPassword;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="FTPUser", type="string", length=255, nullable=true, unique=true)
+     */
+    private $FTPUser;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="FTPassword", type="string", length=255, nullable=true)
+     */
+    private $FTPPassword;
+
+    /**
      * @var int
      *
      * @ORM\Column(name="viewer", type="integer", nullable=true)
@@ -345,5 +359,53 @@ class Camera extends BaseFile
     public function getEmailPassword()
     {
         return $this->emailPassword;
+    }
+
+    /**
+     * Set fTPUser
+     *
+     * @param string $fTPUser
+     *
+     * @return Camera
+     */
+    public function setFTPUser($fTPUser)
+    {
+        $this->FTPUser = $fTPUser;
+
+        return $this;
+    }
+
+    /**
+     * Get fTPUser
+     *
+     * @return string
+     */
+    public function getFTPUser()
+    {
+        return $this->FTPUser;
+    }
+
+    /**
+     * Set fTPPassword
+     *
+     * @param string $fTPPassword
+     *
+     * @return Camera
+     */
+    public function setFTPPassword($fTPPassword)
+    {
+        $this->FTPPassword = $fTPPassword;
+
+        return $this;
+    }
+
+    /**
+     * Get fTPPassword
+     *
+     * @return string
+     */
+    public function getFTPPassword()
+    {
+        return $this->FTPPassword;
     }
 }

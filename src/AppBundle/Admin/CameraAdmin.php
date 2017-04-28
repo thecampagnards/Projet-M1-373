@@ -6,8 +6,7 @@ use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
-
-use AppBundle\Entity\Fichier;
+use Sonata\CoreBundle\Validator\ErrorElement;
 
 class CameraAdmin extends AbstractAdmin
 {
@@ -53,6 +52,20 @@ class CameraAdmin extends AbstractAdmin
           'template' => 'components/admin/field_media.html.twig'
         ), array('admin_code' => 'admin.media'))
         ;
+
+        if (!empty($camera->getId())) {
+          $formMapper
+          ->add('FTPUser', 'text', array('label' => 'Utilisateur FTP', 'help' => 'Utilisateur FTP pour déposer les fichiers.', 'disabled' => true, 'required' => false))
+          ->add('FTPPassword', 'text', array('label' => 'Mot de passe FTP', 'help' => 'Mot de passe FTP.', 'required' => false));
+        }
+    }
+
+    public function validate(ErrorElement $errorElement, $object)
+    {
+      shell_exec(escapeshellcmd(
+        'sudo '.$this->getConfigurationPool()->getContainer()->get('kernel')->getRootDir().'/../src/AppBundle/Scripts/ftp.sh camera'.$object->getId().' '.$object->getFTPPassword().' '.$this->getConfigurationPool()->getContainer()->get('kernel')->getRootDir().'/../web/uploads/camera/'.$object->getId().'/'. ($object->getEtat() ? 'public' : 'prive') .'/'
+      ));
+      $object->setFTPUser('camera'.$object->getId());
     }
 
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
