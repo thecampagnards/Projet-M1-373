@@ -29,14 +29,12 @@
   $('#stream-control').click(function(e){
     e.preventDefault()
     if(play){
-      $(this).html('<i class="fa fa-play tippy" title="Relancer le direct"></i>')
-      $('#stream-flux').attr('src', $(this).attr('data-pause'))
+        $('#stream-flux').attr('src', $(this).attr('data-pause') + '?' + Math.floor((Math.random() * 10000) + 1))
     }else{
-      $(this).html('<i class="fa fa-pause tippy" title="Mettre le direct en pause"></i>')
-      $('#stream-flux').attr('src', $(this).attr('data-play'))
+        $('#stream-flux').attr('src', $(this).attr('data-play'))
     }
+  $(this).children('i').toggleClass('hide')
     play = !play
-    new Tippy('.tippy')
   })
 
 </script>

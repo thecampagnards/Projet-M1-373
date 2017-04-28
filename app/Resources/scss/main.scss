@@ -130,7 +130,13 @@ ul.medias {
   width: 100%;
   text-align: center;
   margin: 5px;
+
+  .fa.hide {
+    display: none;
+  }
 }
+
+
 
 .viewer {
   float: right;
@@ -229,6 +235,34 @@ a.button {
   &.dark {
     background-color: $dark-color1;
     color: #ffffff;
+  }
+}
+
+.navigation {
+  text-align: center;
+}
+
+.pagination span {
+  text-align: center;
+  font-size: 0.8em;
+  padding: 5px 8px;
+  text-transform: none;
+  text-decoration: none;
+  cursor: pointer;
+  background-color: $dark-color1;
+  margin: 4px;
+
+  &.current {
+    font-weight: bold;
+    background-color: #ffffff;
+    border: 2px solid $dark-color1;
+    margin-right: 0;
+  }
+
+  a {
+    color: #ffffff;
+    text-decoration: none;
+    margin-left: 4px;
   }
 }
 
