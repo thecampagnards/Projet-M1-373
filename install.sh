@@ -32,10 +32,36 @@ apt-get -y upgrade
 debconf-set-selections <<< 'mysql-server mysql-server/root_password password ' $password_mysql
 debconf-set-selections <<< 'mysql-server mysql-server/root_password_again password ' $password_mysql
 apt-get -y install mysql-server
-apt-get -y install php apache2 php-mysql git sendmail npm wget php-imap
+apt-get -y install php apache2 php-mysql git sendmail npm wget php-imap openssl whois
 a2enmod rewrite
 
 # configuration serveur mail
+
+# droits scripts
+"www-data ALL =(ALL) NOPASSWD: $script_dir/src/AppBundle/Scripts/ftp.sh, /usr/sbin/useradd, /usr/sbin/deluser" >> /etc/sudoers
+
+# https https://gist.github.com/bradland/1690807
+export PASSPHRASE=$(head -c 500 /dev/urandom | tr -dc a-z0-9A-Z | head -c 128; echo)
+subj="
+C=<COUNTRY>
+ST=<STATE>
+O=<COMPANY_NAME>
+localityName=<CITY>
+commonName=$nom_domaine
+organizationalUnitName=<DEPARTMENT_NAME>
+emailAddress=<ADMIN_EMAIL>
+"
+openssl genrsa -des3 -out $nom_domaine.key -passout env:PASSPHRASE 2048
+openssl req \
+    -new \
+    -batch \
+    -subj "$(echo -n "$subj" | tr "\n" "/")" \
+    -key $nom_domaine.key \
+    -out $nom_domaine.csr \
+    -passin env:PASSPHRASE
+cp $nom_domaine.key $nom_domaine.key.fr
+openssl rsa -in $nom_domaine.key.fr -out $nom_domaine.key -passin env:PASSPHRASE
+openssl x509 -req -days 3650 -in $nom_domaine.csr -signkey $nom_domaine.key -out $nom_domaine.crt
 
 # recupération du dépôt
 git init
