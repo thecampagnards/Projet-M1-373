@@ -7,11 +7,24 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Symfony\Component\Form\CallbackTransformer;
+use FOS\UserBundle\Model\UserManagerInterface;
 
-use AppBundle\Form\UtilisateurType;
+//use AppBundle\Form\UtilisateurType;
 
 class UtilisateurAdmin extends AbstractAdmin
 {
+
+    /**
+     * @var UserManagerInterface
+     */
+    protected $userManager;
+
+    public function __construct($code, $class, $baseControllerName, UserManagerInterface $userManager)
+    {
+        parent::__construct($code, $class, $baseControllerName);
+        $this->userManager = $userManager;
+    }
+
     protected function configureFormFields(FormMapper $formMapper)
     {
 
@@ -24,8 +37,14 @@ class UtilisateurAdmin extends AbstractAdmin
           'Désactivé' => '0',
           'Activé' => '1'
         )))
-        ->add('password', 'password', array('help' => 'Mot de passe de l\'utilisateur.'))
-        ->add('cameras', 'sonata_type_model', array(
+
+        ->add('plainPassword', 'text', array(
+          'label' => 'Mot de passe',
+          'help' => 'Mot de passe de l\'utilisateur.',
+          'required' => (!$this->getSubject() || is_null($this->getSubject()->getId())),
+        ))
+
+      /*  ->add('cameras', 'sonata_type_model', array(
           'required' => false,
           'by_reference' => false,
           'expanded' => true,
@@ -33,7 +52,7 @@ class UtilisateurAdmin extends AbstractAdmin
           'label' => 'Caméras',
           'help' => 'Les caméras associés à l\'utilisateur.'
         ), array('admin_code' => 'admin.camera'))
-
+*/
         //->add($builder->get('ipNdd'))
 
         /*->add('ipNdd', 'sonata_type_model', array(
@@ -44,6 +63,12 @@ class UtilisateurAdmin extends AbstractAdmin
           'help' => 'Les ip et noms de domaine associés à l\'utilisateur.'
         ))*/
         ;
+    }
+
+    public function preUpdate($user)
+    {
+        $this->userManager->updateCanonicalFields($user);
+        $this->userManager->updatePassword($user);
     }
 
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)

@@ -42,7 +42,7 @@ class CameraAdmin extends AbstractAdmin
           'multiple' => true,
           'help' => 'Les utilisateurs pouvant accèder à la caméra en privé.'
         ), array('admin_code' => 'admin.utilisateur'))
-        ->add('medias', 'sonata_type_model', array(
+      /*  ->add('medias', 'sonata_type_model', array(
           'required' => false,
           'by_reference' => false,
           'expanded' => true,
@@ -50,7 +50,7 @@ class CameraAdmin extends AbstractAdmin
           'label' => 'Médias',
           'help' => 'Les médias associés à la caméra.',
           'template' => 'components/admin/field_media.html.twig'
-        ), array('admin_code' => 'admin.media'))
+        ), array('admin_code' => 'admin.media'))*/
         ;
 
         if (!empty($camera->getId())) {

@@ -16,6 +16,12 @@ services:
         tags:
             - { name: form.type, alias: app_user_profile_edit }
 
+    admin.profile.form.type:
+        class: AppBundle\Form\ProfileType
+        arguments: ['%fos_user.model.user.class%', '@security.authorization_checker']
+        tags:
+            - { name: form.type, alias: app_user_profile_edit }
+
     admin.camera:
         class: AppBundle\Admin\CameraAdmin
         arguments: [~, AppBundle\Entity\Camera, ~]
@@ -30,7 +36,7 @@ services:
 
     admin.utilisateur:
         class: AppBundle\Admin\UtilisateurAdmin
-        arguments: [~, AppBundle\Entity\Utilisateur, ~]
+        arguments: [~, AppBundle\Entity\Utilisateur, ~, '@fos_user.user_manager']
         tags:
             - { name: sonata.admin, manager_type: orm, group: 'Utilisateur', label: Lister les utilisateurs,  icon: '<i class="fa fa-user-o"></i>', position:right }
 
