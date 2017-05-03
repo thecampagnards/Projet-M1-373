@@ -19,16 +19,21 @@ class IframeService
   {
     try {
       $request = $this->requestStack->getCurrentRequest();
-      $uri = $request->headers->get('referer');
 
       /*
+      $uri = $request->headers->get('referer');
       $baseUrl = $request->getBaseUrl();
       $lastPath = substr($uri, strpos($uri, $baseUrl) + strlen($baseUrl));
       $routes = $this->router->getRouteCollection()->all();
       $route = $this->router->match($lastPath);//['_route'];
       */
 
-      return $uri ? true : false;
+      if(empty($request->headers->get('referer'))){
+        return false;
+      }
+
+      return strpos($request->headers->get('referer'), $request->getHost()) ? false : true;
+
     } catch (\Exception $e) {
 
     }
