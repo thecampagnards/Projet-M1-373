@@ -197,17 +197,6 @@ section {
       margin-bottom: 10px;
     }
   }
-
-  &#sous-menu {
-    background-color: $dark-color3;
-    color: #FFFFFF;
-    display: flex;
-    justify-content: space-between;
-
-    a {
-      color: #fff;
-    }
-  }
 }
 
 .links {
@@ -258,16 +247,63 @@ section {
 footer {
   background-color: $dark-color2;
   color: #FFFFFF;
-  text-align: center;
-  padding: 15px;
+  padding: 25px 15%;
   font-size: 14px;
+  text-align: center;
 
   a {
     color: #fff;
-    font-weight: bold;
+  }
 
-    &:hover {
-      text-decoration: underline;
+  div {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+    margin-right: 15px;
+    min-width: 200px;
+    padding: 0 10px;
+    height: 140px;
+
+    &:not(:last-child) {
+      box-shadow: 2px 0 0 0 rgba(255,255,255,.1)
+    }
+
+    h4 {
+      text-transform: uppercase;
+
+      a {
+        color: $blue-color;
+      }
+    }
+
+    ul {
+      padding: 0;
+      margin: 0;
+
+      li {
+        list-style: none;
+        opacity: 0.8;
+
+        &:hover {
+          opacity: 1;
+        }
+      }
+    }
+
+    p {
+      padding: 0;
+      margin: 0;
+    }
+  }
+}
+
+@media (max-width: 1340px) {
+  footer div {
+    display: flex;
+
+    &:not(:last-child) {
+      box-shadow: none;
     }
   }
 }
