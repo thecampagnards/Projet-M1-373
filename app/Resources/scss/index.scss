@@ -271,6 +271,7 @@ footer {
 
     h4 {
       text-transform: uppercase;
+      margin: 7px 0px;
 
       a {
         color: $blue-color;
@@ -283,7 +284,7 @@ footer {
 
       li {
         list-style: none;
-        opacity: 0.8;
+        opacity: 0.6;
 
         &:hover {
           opacity: 1;
