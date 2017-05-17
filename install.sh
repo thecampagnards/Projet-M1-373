@@ -34,6 +34,8 @@ debconf-set-selections <<< 'mysql-server mysql-server/root_password_again passwo
 apt-get -y install mysql-server
 apt-get -y install php apache2 php-mysql git sendmail npm wget php-imap openssl whois
 a2enmod rewrite
+a2enmod ssl
+service apache2 force-reload
 
 # configuration serveur mail
 
@@ -43,13 +45,13 @@ a2enmod rewrite
 # https https://gist.github.com/bradland/1690807
 export PASSPHRASE=$(head -c 500 /dev/urandom | tr -dc a-z0-9A-Z | head -c 128; echo)
 subj="
-C=<COUNTRY>
-ST=<STATE>
-O=<COMPANY_NAME>
-localityName=<CITY>
+C=<FRANCE>
+ST=<FRANCE>
+O=<ISEN>
+localityName=<BREST>
 commonName=$nom_domaine
-organizationalUnitName=<DEPARTMENT_NAME>
-emailAddress=<ADMIN_EMAIL>
+organizationalUnitName=<ISEN>
+emailAddress=<administrateur@$nom_domaine>
 "
 openssl genrsa -des3 -out $nom_domaine.key -passout env:PASSPHRASE 2048
 openssl req \
@@ -116,6 +118,21 @@ echo "<VirtualHost *:80>
   </Directory>
   ErrorLog /var/log/apache2/$nom_domaine.error.log
   CustomLog /var/log/apache2/.$nom_domaine.access.log combined
+</VirtualHost>
+<VirtualHost *:443>
+  ServerName $nom_domaine
+  ServerAdmin administrateur@$nom_domaine
+  DocumentRoot $script_dir/
+  <Directory $script_dir/>
+    Options Indexes FollowSymLinks MultiViews
+    AllowOverride All
+    Require all granted
+  </Directory>
+  ErrorLog /var/log/apache2/$nom_domaine.error.log
+  CustomLog /var/log/apache2/.$nom_domaine.access.log combined
+  SSLEngine on
+  SSLCertificateChainFile $script_dir/$nom_domaine.crt
+  SSLCertificateKeyFile $script_dir/$nom_domaine.key
 </VirtualHost>
 " > /etc/apache2/sites-available/$nom_domaine.conf
 a2ensite $nom_domaine.conf
