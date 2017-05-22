@@ -147,17 +147,30 @@
     </ul>
   </section>
 
-  <section id="sous-menu">
-      <span><a href="">Plan du site</a> //a remplir</span>
-      <span><a href="">Mentions légales</a> //a remplir</span>
-      <span><a href="{{ url('contact') }}">Contact</a></span>
-    </div>
-  </section>
-
   <footer>
-    Réalisé par <a href="http://evanguelard.fr" target="_blank">Evan Guélard</a> et <a href="http://konstantin-sidorenko.fr" target="_blank">Konstantin Sidorenko</a> |
-    Tutelle de Yves Auffret | <a href="http://isen-brest.fr/">ISEN Brest</a> | Propulsé par <a
-            href="https://www.ovh.com/fr/">OVH</a>
+    <div>
+      <h4>{{ nomdusite }}</h4>
+      <ul>
+        <li><a href="{{ url('cameras') }}">Liste des caméras</a></li>
+        <li><a href="{{ url('medias_populaires') }}">Médias populaires</a></li>
+        <li><a href="{{ url('medias_recents') }}">Médias récents</a></li>
+        <li><a href="{{ url('medias_photo_periode', {periode: 'de-la-semaine'}) }}">Médias de la semaine</a></li>
+        <li><a href="{{ url('contact') }}">Contact</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Partenaires</h4>
+      <ul>
+        <li><a href="http://www.isen.fr/">ISEN</a></li>
+        <li><a href="http://www.seatestbase.com/">Sea Test Base</a></li>
+        <li><a href="http://www.oceanopolis.com/">Océanoolis</a></li>
+        <li><a href="http://www.parc-marin-iroise.fr/">Parc Naturel Marin de l'Iroise</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Réalisé par <a href="http://evanguelard.fr" target="_blank">Evan Guélard</a> et <a href="http://konstantin-sidorenko.fr" target="_blank">Konstantin Sidorenko</a></h4>
+        <ul><li>Sous tutelle de Yves Auffret à l'<a href="http://isen-brest.fr/">ISEN Brest</a></li></ul>
+    </div>
   </footer>
 {% endblock %}
 
