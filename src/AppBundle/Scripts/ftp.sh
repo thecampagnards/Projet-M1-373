@@ -8,7 +8,6 @@ fi
 # check arguments script
 if [[ $# -ne 3 ]]; then
   echo -e "\e[1;31mLes arguments passés au script ne sont pas bons.
-Ils doit y avoir le mot de passe du serveur mysql et le nom de domain du site.
 
 exemple : ./ftp.sh nom motdepasse repertoire\e[0m" 1>&2
   exit 1

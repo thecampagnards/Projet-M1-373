@@ -32,7 +32,7 @@ class CameraController extends Controller
                 ->getManager()
                 ->getRepository('AppBundle:Camera')->findByEtat(true);
       }
-        return $this->render('pages/cameras.html.twig', array('cameras' => $cameras));
+      return $this->render('pages/cameras.html.twig', array('cameras' => $cameras));
     }
 
     /**
