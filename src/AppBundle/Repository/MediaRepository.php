@@ -15,16 +15,39 @@ class MediaRepository extends \Doctrine\ORM\EntityRepository
    *
    * @return result
    */
-    public function orderByVotes($order = 'DESC')
+    public function orderByVotes($utilisateurId = 0, $order = 'DESC')
     {
       $qb = $this->_em->createQueryBuilder();
       $qb->select('u, COUNT(v.id) AS HIDDEN countVotes')
           ->from($this->_entityName, 'u')
           ->innerJoin('u.votes', 'v')
+          ->leftJoin('u.camera','ca')
+          ->leftJoin('ca.utilisateurs','us')
+
+          ->where('u.etat = 1')
+          ->orWhere('us.id = :utilisateur_id')
+
           ->groupBy('u.id')
-          ->orderBy('countVotes', $order);
+          ->orderBy('countVotes', $order)
+          ->setParameter('utilisateur_id', $utilisateurId);
       return $qb->getQuery();
     }
+
+    /**
+     * @param string $order
+     *
+     * @return result
+     */
+      public function orderByVotesAdmin($order = 'DESC')
+      {
+        $qb = $this->_em->createQueryBuilder();
+        $qb->select('u, COUNT(v.id) AS HIDDEN countVotes')
+            ->from($this->_entityName, 'u')
+            ->innerJoin('u.votes', 'v')
+            ->groupBy('u.id')
+            ->orderBy('countVotes', $order);
+        return $qb->getQuery();
+      }
 
     /**
      * @param string $order

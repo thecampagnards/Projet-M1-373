@@ -27,9 +27,25 @@ class MediaController extends Controller
     public function populairesAction(Request $request)
     {
 
-        $query = $this->getDoctrine()
-                ->getManager()
-                ->getRepository('AppBundle:Media')->orderByVotes();
+        if($this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')){
+          $query = $this
+                  ->getDoctrine()
+                  ->getManager()
+                  ->getRepository('AppBundle:Media')
+                  ->orderByVotesAdmin();
+        }elseif($this->get('security.authorization_checker')->isGranted('ROLE_USER')){
+          $query = $this
+                  ->getDoctrine()
+                  ->getManager()
+                  ->getRepository('AppBundle:Media')
+                  ->orderByVotes($this->getUser());
+        }else{
+          $query = $this
+                  ->getDoctrine()
+                  ->getManager()
+                  ->getRepository('AppBundle:Media')
+                  ->orderByVotes();
+        }
 
         $paginator  = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
