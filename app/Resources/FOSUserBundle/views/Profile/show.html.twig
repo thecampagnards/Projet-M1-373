@@ -36,7 +36,7 @@
     <h1>Historique de mes votes</h1>
     <p>Affichage des 15 derniers votes au maximum.</p>
     <ul class="medias">
-        {% for vote in user.votes | slice(0, 14) %}
+        {% for vote in user.votes | slice(0, 14) | reverse %}
             <li class="media">
                 {% include 'components/block/media.html.twig' with {'media': vote.media, 'popup': false} %}
                 {% include 'components/block/vote.count.html.twig' with {'media': vote.media} %}
