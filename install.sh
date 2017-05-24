@@ -16,15 +16,18 @@ exemple : ./install.sh motdepassesql monnomdedomaine.fr\e[0m" 1>&2
 fi
 
 # check du nom de domaines
-if ! [[ $2 =~ ^[a-zA-Z0-9][a-zA-Z0-9-]{1,61}[a-zA-Z0-9]\.[a-zA-Z]{2,}$ ]]; then
-  echo -e "\e[1;31mLe nom de domaine n'est pas correct.\e[0m" 1>&2
-  exit 1
-fi
+# if ! [[ $2 =~ ^[a-zA-Z0-9][a-zA-Z0-9-]{1,61}[a-zA-Z0-9]\.[a-zA-Z]{2,}$ ]]; then
+#   echo -e "\e[1;31mLe nom de domaine n'est pas correct.\e[0m" 1>&2
+#   exit 1
+# fi
 
 # paramètres du script
 password_mysql="$1"
 nom_domaine="$2"
-script_dir=$(dirname -- "$(readlink -e -- "$BASH_SOURCE")")
+script_dir=$(dirname -- "$(readlink -e -- "$BASH_SOURCE")")/www
+
+mkdir www
+cd www
 
 # install des packages
 echo "
@@ -78,6 +81,7 @@ git fetch
 git branch master origin/master
 git checkout master
 git pull
+echo "CREATE DATABASE camera" | mysql -u root --password=$password_mysql
 
 # installation du projet
 echo "parameters:
@@ -98,15 +102,14 @@ php -r "unlink('composer-setup.php');"
 npm cache clean -f
 npm install -g n
 n stable
-npm install -g npm
-npm install -g gulp
-npm install -g bower
+npm install -g npm bower gulp
 npm install
+npm install gulp
+npm rebuild node-sass
 gulp default
 bower install ./vendor/sonata-project/admin-bundle/bower.json  --allow-root
 
 # installation bdd
-echo "CREATE DATABASE camera" | mysql -u root --password=$password_mysql
 php bin/console doctrine:schema:update --force
 
 # installation tache cron
@@ -121,8 +124,8 @@ rm mycron
 echo "<VirtualHost *:80>
   ServerName $nom_domaine
   ServerAdmin administrateur@$nom_domaine
-  DocumentRoot $script_dir/
-  <Directory $script_dir/>
+  DocumentRoot $script_dir/web
+  <Directory $script_dir/web>
     Options Indexes FollowSymLinks MultiViews
     AllowOverride All
     Require all granted
@@ -155,6 +158,9 @@ php bin/console app:camera-reset
 php bin/console cache:clear
 php bin/console assets:install
 service apache2 restart
+
+#creation de l'admin
+php bin/console fos:user:create --super-admin
 
 # droits web
 chown -R www-data:www-data .
