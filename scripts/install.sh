@@ -43,10 +43,13 @@ apt-get -y install php7.0 apache2 php-mysql git sendmail npm wget php7.0-imap ph
 apt-get -y install python-certbot-apache -t jessie-backports
 a2enmod rewrite
 a2enmod ssl
+sudo phpenmod imap
 service apache2 force-reload
 ln -s /usr/bin/nodejs /usr/bin/node
 
 # configuration serveur mail
+iptables -A OUTPUT -p udp --dport 993 -j ACCEPT
+iptables -A OUTPUT -p tcp --dport 993 -j ACCEPT
 
 # droits scripts
 echo "www-data ALL =(ALL) NOPASSWD: $script_dir/src/AppBundle/Scripts/ftp.sh, /usr/sbin/useradd, /usr/sbin/deluser" >> /etc/sudoers

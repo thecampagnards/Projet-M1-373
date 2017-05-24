@@ -82,7 +82,7 @@ class CronController extends Controller
     $cameras = $this->getDoctrine()->getRepository('AppBundle:Camera')->findAll();
     foreach ($cameras as $camera) {
 
-      if(empty($camera->getEmail()) && empty($camera->getEmailPassword())){
+      if(empty($camera->getEmail()) || empty($camera->getEmailPassword())){
         continue;
       }
 
