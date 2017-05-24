@@ -16,54 +16,66 @@ exemple : ./install.sh motdepassesql monnomdedomaine.fr\e[0m" 1>&2
 fi
 
 # check du nom de domaines
-if ! [[ $2 =~ ^[a-zA-Z0-9][a-zA-Z0-9-]{1,61}[a-zA-Z0-9]\.[a-zA-Z]{2,}$ ]]; then
-  echo -e "\e[1;31mLe nom de domaine n'est pas correct.\e[0m" 1>&2
-  exit 1
-fi
+# if ! [[ $2 =~ ^[a-zA-Z0-9][a-zA-Z0-9-]{1,61}[a-zA-Z0-9]\.[a-zA-Z]{2,}$ ]]; then
+#   echo -e "\e[1;31mLe nom de domaine n'est pas correct.\e[0m" 1>&2
+#   exit 1
+# fi
 
 # paramètres du script
 password_mysql="$1"
 nom_domaine="$2"
-script_dir=$(dirname -- "$(readlink -e -- "$BASH_SOURCE")")
+script_dir=$(dirname -- "$(readlink -e -- "$BASH_SOURCE")")/www
+
+mkdir www
+cd www
 
 # install des packages
-apt-get update
+echo "
+deb http://ftp.hosteurope.de/mirror/packages.dotdeb.org/ jessie all
+deb-src http://ftp.hosteurope.de/mirror/packages.dotdeb.org/ jessie all
+" >> /etc/apt/sources.list
+wget https://www.dotdeb.org/dotdeb.gpg && apt-key add dotdeb.gpg && apt-get update
 apt-get -y upgrade
 debconf-set-selections <<< 'mysql-server mysql-server/root_password password ' $password_mysql
 debconf-set-selections <<< 'mysql-server mysql-server/root_password_again password ' $password_mysql
 apt-get -y install mysql-server
-apt-get -y install php apache2 php-mysql git sendmail npm wget php-imap openssl whois
+apt-get -y install php7.0 apache2 php-mysql git sendmail npm wget php7.0-imap php7.0-xml openssl whois
+apt-get -y install python-certbot-apache -t jessie-backports
 a2enmod rewrite
 a2enmod ssl
+sudo phpenmod imap
 service apache2 force-reload
+ln -s /usr/bin/nodejs /usr/bin/node
 
 # configuration serveur mail
+iptables -A OUTPUT -p udp --dport 993 -j ACCEPT
+iptables -A OUTPUT -p tcp --dport 993 -j ACCEPT
 
 # droits scripts
-"www-data ALL =(ALL) NOPASSWD: $script_dir/src/AppBundle/Scripts/ftp.sh, /usr/sbin/useradd, /usr/sbin/deluser" >> /etc/sudoers
+echo "www-data ALL =(ALL) NOPASSWD: $script_dir/src/AppBundle/Scripts/ftp.sh, /usr/sbin/useradd, /usr/sbin/deluser" >> /etc/sudoers
 
 # https https://gist.github.com/bradland/1690807
-export PASSPHRASE=$(head -c 500 /dev/urandom | tr -dc a-z0-9A-Z | head -c 128; echo)
-subj="
-C=<FRANCE>
-ST=<FRANCE>
-O=<ISEN>
-localityName=<BREST>
-commonName=$nom_domaine
-organizationalUnitName=<ISEN>
-emailAddress=<administrateur@$nom_domaine>
-"
-openssl genrsa -des3 -out $nom_domaine.key -passout env:PASSPHRASE 2048
-openssl req \
-    -new \
-    -batch \
-    -subj "$(echo -n "$subj" | tr "\n" "/")" \
-    -key $nom_domaine.key \
-    -out $nom_domaine.csr \
-    -passin env:PASSPHRASE
-cp $nom_domaine.key $nom_domaine.key.fr
-openssl rsa -in $nom_domaine.key.fr -out $nom_domaine.key -passin env:PASSPHRASE
-openssl x509 -req -days 3650 -in $nom_domaine.csr -signkey $nom_domaine.key -out $nom_domaine.crt
+# export PASSPHRASE=$(head -c 500 /dev/urandom | tr -dc a-z0-9A-Z | head -c 128; echo)
+# subj="
+# C=<FRANCE>
+# ST=<FRANCE>
+# O=<ISEN>
+# localityName=<BREST>
+# commonName=$nom_domaine
+# organizationalUnitName=<ISEN>
+# emailAddress=<administrateur@$nom_domaine>
+# "
+# openssl genrsa -des3 -out $nom_domaine.key -passout env:PASSPHRASE 2048
+# openssl req \
+#     -new \
+#     -batch \
+#     -subj "$(echo -n "$subj" | tr "\n" "/")" \
+#     -key $nom_domaine.key \
+#     -out $nom_domaine.csr \
+#     -passin env:PASSPHRASE
+# cp $nom_domaine.key $nom_domaine.key.fr
+# openssl rsa -in $nom_domaine.key.fr -out $nom_domaine.key -passin env:PASSPHRASE
+# openssl x509 -req -days 3650 -in $nom_domaine.csr -signkey $nom_domaine.key -out $nom_domaine.crt
 
 # recupération du dépôt
 git init
@@ -72,6 +84,7 @@ git fetch
 git branch master origin/master
 git checkout master
 git pull
+echo "CREATE DATABASE camera" | mysql -u root --password=$password_mysql
 
 # installation du projet
 echo "parameters:
@@ -89,13 +102,17 @@ php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
 php composer-setup.php
 php -r "unlink('composer-setup.php');"
 ./composer.phar install
-npm install -g gulp
+npm cache clean -f
+npm install -g n
+n stable
+npm install -g npm bower gulp
 npm install
+npm install gulp
+npm rebuild node-sass
 gulp default
 bower install ./vendor/sonata-project/admin-bundle/bower.json  --allow-root
 
 # installation bdd
-echo "CREATE DATABASE camera" | mysql -u root -p$password_mysql
 php bin/console doctrine:schema:update --force
 
 # installation tache cron
@@ -110,8 +127,8 @@ rm mycron
 echo "<VirtualHost *:80>
   ServerName $nom_domaine
   ServerAdmin administrateur@$nom_domaine
-  DocumentRoot $script_dir/
-  <Directory $script_dir/>
+  DocumentRoot $script_dir/web
+  <Directory $script_dir/web>
     Options Indexes FollowSymLinks MultiViews
     AllowOverride All
     Require all granted
@@ -119,29 +136,34 @@ echo "<VirtualHost *:80>
   ErrorLog /var/log/apache2/$nom_domaine.error.log
   CustomLog /var/log/apache2/.$nom_domaine.access.log combined
 </VirtualHost>
-<VirtualHost *:443>
-  ServerName $nom_domaine
-  ServerAdmin administrateur@$nom_domaine
-  DocumentRoot $script_dir/
-  <Directory $script_dir/>
-    Options Indexes FollowSymLinks MultiViews
-    AllowOverride All
-    Require all granted
-  </Directory>
-  ErrorLog /var/log/apache2/$nom_domaine.error.log
-  CustomLog /var/log/apache2/.$nom_domaine.access.log combined
-  SSLEngine on
-  SSLCertificateChainFile $script_dir/$nom_domaine.crt
-  SSLCertificateKeyFile $script_dir/$nom_domaine.key
-</VirtualHost>
+# <VirtualHost *:443>
+#   ServerName $nom_domaine
+#   ServerAdmin administrateur@$nom_domaine
+#   DocumentRoot $script_dir/
+#   <Directory $script_dir/>
+#     Options Indexes FollowSymLinks MultiViews
+#     AllowOverride All
+#     Require all granted
+#   </Directory>
+#   ErrorLog /var/log/apache2/$nom_domaine.error.log
+#   CustomLog /var/log/apache2/.$nom_domaine.access.log combined
+#   SSLEngine on
+#   SSLCertificateChainFile $script_dir/$nom_domaine.crt
+#   SSLCertificateKeyFile $script_dir/$nom_domaine.key
+# </VirtualHost>
 " > /etc/apache2/sites-available/$nom_domaine.conf
 a2ensite $nom_domaine.conf
+
+certbot --apache
 
 # clear du cache + redemarrage apache
 php bin/console app:camera-reset
 php bin/console cache:clear
 php bin/console assets:install
 service apache2 restart
+
+#creation de l'admin
+php bin/console fos:user:create --super-admin
 
 # droits web
 chown -R www-data:www-data .

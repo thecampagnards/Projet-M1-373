@@ -62,10 +62,12 @@ class CameraAdmin extends AbstractAdmin
 
     public function validate(ErrorElement $errorElement, $object)
     {
-      shell_exec(escapeshellcmd(
-        'sudo '.$this->getConfigurationPool()->getContainer()->get('kernel')->getRootDir().'/../src/AppBundle/Scripts/ftp.sh camera'.$object->getId().' '.$object->getFTPPassword().' '.$this->getConfigurationPool()->getContainer()->get('kernel')->getRootDir().'/../web/uploads/camera/'.$object->getId().'/'. ($object->getEtat() ? 'public' : 'prive') .'/'
-      ));
-      $object->setFTPUser('camera'.$object->getId());
+      if(!empty($object->getId())){
+        shell_exec(escapeshellcmd(
+          'sudo '.$this->getConfigurationPool()->getContainer()->get('kernel')->getRootDir().'/../src/AppBundle/Scripts/ftp.sh camera'.$object->getId().' '.$object->getFTPPassword().' '.$this->getConfigurationPool()->getContainer()->get('kernel')->getRootDir().'/../web/uploads/camera/'.$object->getId().'/'. ($object->getEtat() ? 'public' : 'prive') .'/'
+        ));
+        $object->setFTPUser('camera'.$object->getId());
+      }
     }
 
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
