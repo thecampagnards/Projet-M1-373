@@ -5,6 +5,8 @@ namespace AppBundle\Service;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
 
+use AppBundle\Entity\Camera;
+
 class IframeService
 {
   protected $requestStack, $router;
@@ -36,6 +38,21 @@ class IframeService
 
     } catch (\Exception $e) {
 
+    }
+    return true;
+  }
+
+  public function isIframeAccess(Camera $camera)
+  {
+  if($this->isIframe() && $camera->getEtat()){
+      $request = $this->requestStack->getCurrentRequest();
+      $utilisateurs = $camera->getUtilisateurs();
+      foreach ($utilisateurs as $utilisateur) {
+        if($utilisateur->getIpNdd()->contains($request->getHost())){
+          return true;
+        }
+      }
+      return false;
     }
     return true;
   }
