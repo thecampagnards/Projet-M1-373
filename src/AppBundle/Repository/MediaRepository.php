@@ -86,6 +86,7 @@ class MediaRepository extends \Doctrine\ORM\EntityRepository
             ->from($this->_entityName, 'u')
             ->innerJoin('u.votes', 'v')
             ->groupBy('u.id')
+            ->where('u.etat = 1')
             ->andWhere('v.date BETWEEN :from AND :to')
             ->orderBy('countVotes', $order)
             ->setParameter('from', $from)

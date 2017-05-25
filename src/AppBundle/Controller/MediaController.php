@@ -61,7 +61,7 @@ class MediaController extends Controller
      */
     public function recentsAction(Request $request)
     {
-        $query = $this->get('doctrine.orm.entity_manager')->createQuery('SELECT a FROM AppBundle:Media a ORDER BY a.created DESC');
+        $query = $this->get('doctrine.orm.entity_manager')->createQuery('SELECT a FROM AppBundle:Media a WHERE a.etat = true ORDER BY a.created DESC');
 
         $paginator  = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
