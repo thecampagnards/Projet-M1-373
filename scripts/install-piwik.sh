@@ -11,7 +11,7 @@ if [[ $# -ne 2 ]]; then
   echo -e "\e[1;31mLes arguments passés au script ne sont pas bons.
 Ils doit y avoir le mot de passe du serveur mysql et le nom de domain du site.
 
-exemple : ./install.sh motdepassesql monnomdedomaine.fr\e[0m" 1>&2
+exemple : ./install-piwik.sh motdepassesql monnomdedomaine.fr\e[0m" 1>&2
   exit 1
 fi
 

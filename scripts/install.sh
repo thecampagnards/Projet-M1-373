@@ -39,17 +39,30 @@ apt-get -y upgrade
 debconf-set-selections <<< 'mysql-server mysql-server/root_password password ' $password_mysql
 debconf-set-selections <<< 'mysql-server mysql-server/root_password_again password ' $password_mysql
 apt-get -y install mysql-server
-apt-get -y install php7.0 apache2 php-mysql git sendmail npm wget php7.0-imap php7.0-xml openssl whois
+apt-get -y install php7.0 apache2 php-mysql git sendmail npm wget php7.0-imap php7.0-xml openssl whois proftpd openvpn
 apt-get -y install python-certbot-apache -t jessie-backports
-a2enmod rewrite
-a2enmod ssl
+a2enmod proxy proxy_http proxy_connect ssl rewrite
 sudo phpenmod imap
 service apache2 force-reload
 ln -s /usr/bin/nodejs /usr/bin/node
 
+# vpn
+iptables -A OUTPUT -p udp --dport 110 -j ACCEPT
+iptables -A OUTPUT -p tcp --dport 110 -j ACCEPT
+
 # configuration serveur mail
 iptables -A OUTPUT -p udp --dport 993 -j ACCEPT
 iptables -A OUTPUT -p tcp --dport 993 -j ACCEPT
+
+#ftp
+iptables -A INPUT -p udp --dport 21 -j ACCEPT
+iptables -A INPUT -p tcp --dport 21 -j ACCEPT
+iptables -A OUTPUT -p udp --dport 21 -j ACCEPT
+iptables -A OUTPUT -p tcp --dport 21 -j ACCEPT
+
+echo "DefaultRoot ~
+RequireValidShell off
+" >> /etc/proftpd/proftpd.conf
 
 # droits scripts
 echo "www-data ALL =(ALL) NOPASSWD: $script_dir/src/AppBundle/Scripts/ftp.sh, /usr/sbin/useradd, /usr/sbin/deluser" >> /etc/sudoers
